@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Политика конфиденциальности{% endblock %}
+
+{% block meta_tags %}
+<meta name="description" content="Политика конфиденциальности интернет-магазина">
+<meta name="keywords" content="политика конфиденциальности, защита данных, конфиденциальность">
+<meta name="author" content="Название компании">
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'nicepage.css' %}" media="screen" />
+
+<div class="container mt-5">
+
+            <div class="legal-content bg-white p-4 rounded shadow-sm">
+                <h2>{{ policy.title }}</h2>
+                <div class="content mt-3">
+                    {{ policy.content|linebreaks }}
+                </div>
+
+                <div class="mt-4 text-muted">
+                    <small>Дата последнего обновления: {{ policy.updated_at|date:"d.m.Y" }}</small>
+                </div>
+            </div>
+        </div>
+
+<style>
+    .legal-content {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #fff;
+    }
+
+    .legal-content h2 {
+        color: #d4dc35;
+        border-bottom: 2px solid #d4dc35;
+        padding-bottom: 10px;
+    }
+
+    .legal-content p {
+        margin-bottom: 15px;
+    }
+</style>
+{% endblock %}

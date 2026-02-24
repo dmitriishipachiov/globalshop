@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Войти{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'login.css' %}">
+<section class="u-clearfix u-image u-valign-middle-md u-section-1" id="sec-6a4e" data-image-width="1920" data-image-height="1003">
+    <div class="u-clearfix u-sheet u-sheet-1">
+<meta name="description" content="Авторизация">
+<meta name="keywords" content="Авторизация">
+    <!-- Контейнер для формы -->
+    <div class="auth-container">
+        <!-- Форма авторизации -->
+        <h2 class="u-align-center u-block-header u-h-spacing-0 u-text u-text-body-alt-color">Авторизация</h2>
+<form action="{% url 'accounts:login' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="phone">Номер телефона</label>
+<input type="text" id="phone_number" name="phone_number" placeholder="+7 (___) ___-__-__" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль</label>
+<input type="password" id="password" name="password" placeholder="Введите пароль" required>
+            </div>
+            <button type="submit" class="btn">Войти</button>
+        </form>
+        <div class="switch-form">
+            Нет аккаунта? <a href="{% url 'accounts:register' %}" onclick="switchToRegister()">Зарегистрироваться</a>
+        </div>
+        <a href="{% url 'accounts:logout' %}">Выйти</a>
+    </div>
+    </div>
+    </div>
+</section>
+{% endblock %}

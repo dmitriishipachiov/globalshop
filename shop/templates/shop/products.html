@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% load static %}
+{% load shop_filters %}
+{% block title %}Товары{% endblock %} 
+
+{% block meta_tags %}
+<meta name="description" content="Интернет-магазин">
+<meta name="keywords" content="Интернет-магазин, товары, акции">
+<meta name="author" content="Название компании">
+{% endblock %}
+
+{% block content %}
+    {% comment %} <link rel="stylesheet" href="{% static "nicepage.css" %}" media="screen"> {% endcomment %}
+    <link rel="stylesheet" href="{% static "Product-List-Template.css" %}" media="screen">
+    <link rel="stylesheet" href="{% static "favorite-icon.css" %}" />
+    <script class="u-script" type="text/javascript" src="{% static "jquery.js" %}" defer=""></script>
+    <script class="u-script" type="text/javascript" src="{% static "nicepage.js" %}" defer=""></script>
+
+    <div class="u-clearfix u-content-layout u-sheet">
+      <!-- Фильтр категорий -->
+      <aside class="u-border-2 u-border-custom-color-1 u-indent-40 u-sidebar u-block-2618-1">
+        <div class="u-block u-indent-30 u-block-2618-2">
+          <div class="u-block-container u-clearfix">
+            <h5 class="u-align-center u-block-header u-h-spacing-0 u-text u-text-body-alt-color u-v-spacing-0 u-block-2618-3">
+            <a href="{% url 'shop:shop' %}" class="category-link">Категории</a>
+          </h5>
+            <div class="u-block-content u-text u-text-body-alt-color u-block-2618-4">
+              <nav class="categories-nav">
+                <ul class="u-unstyled">
+                  {% for category in categories %}
+                    <li class="category-item {% if selected_category and selected_category.slug == category.slug %}active{% endif %}">
+                      <a href="?category={{ category.slug }}" class="category-link">
+                        {{ category.title }}
+                      </a>
+                      {% if category.subcategories.all %}
+                        <ul class="subcategories-list">
+                          {% for subcategory in category.subcategories.all %}
+                            <li class="subcategory-item {% if selected_subcategory and selected_subcategory.slug == subcategory.slug %}active{% endif %}">
+                              <a href="?category={{ category.slug }}&subcategory={{ subcategory.slug }}" class="subcategory-link">
+                                {{ subcategory.title }}
+                              </a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Список товаров -->
+      <div class="u-content">
+        <section class="u-align-center u-clearfix u-container-align-center u-section-1" id="block-1">
+          <div class="u-clearfix u-sheet u-valign-middle-sm u-sheet-1"><!--products--><!--products_options_json--><!--{"type":"Recent","source":"","tags":"","count":"0"}--><!--/products_options_json-->
+            <div class="u-align-right u-categories-listbox-left u-expanded-width u-layout-grid u-pagination-center u-products u-sorting-left u-products-1" data-site-sorting-prop="created" data-site-sorting-order="desc" data-items-per-page="3" data-products-datasource="site" data-max-items="0" data-site-category="" data-payment-service="e48ae3d9a543b3044481323dfeafad1e" data-products-id="products-1">
+              <div class="has-categories-listbox has-sorting u-list-control"><!--products_sorting-->
+                <div class="u-sorting">
+                  <select name="sorting" class="u-custom-color-1 u-input u-select-sorting u-input-1" aria-label="Sort items by">
+                    <option value="title-asc">Name, A to Z</option>
+                    <option value="title-desc">Name, Z to A</option>
+                    <option value="price-asc">Price, low to high</option>
+                    <option value="price-desc">Price, high to low</option>
+                    <option value="created-asc">Date, old to new</option>
+                    <option value="created-desc">Date, new to old</option>
+                  </select>
+                  <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
+                </div><!--/products_sorting-->
+              </div>
+              <div class="u-repeater u-repeater-1">
+                {% for product in products %}
+            <div class="u-align-center u-container-align-center u-container-style u-products-item u-repeater-item u-repeater-item-1" data-product-id="{{ product.id }}">
+                <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
+                    <div class="product-image-container" style="position: relative;">
+                        <a class="u-product-title-link" href="{% url 'shop:detail' product.slug %}">
+                            {% if product.images.first %}
+                                <img alt="{{ product.title }}" class="u-expanded-width u-hover-feature u-image u-image-contain u-image-default u-product-control u-image-1" src="{{ product.images.first.image.url }}">
+                                {% if product.quantity == 0 %}
+                                    <div class="u-not-available-overlay">
+                                        Нет в наличии
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </a>
+                    <!-- Favorite icon on image -->
+                    {% if user.is_authenticated %}
+                      <div class="favorite-icon-container">
+                        <form method="post" action="{% url 'shop:favorite_toggle' product.slug %}" class="favorite-form" data-product-slug="{{ product.slug }}" onsubmit="return false;">
+                          {% csrf_token %}
+                          <button type="submit" class="favorite-button" style="background: none; border: none; padding: 0; cursor: pointer;">
+                            <i class="favorite-icon {% if product in user.favorite_products.all %}favorited{% endif %}">♥</i>
+                          </button>
+                        </form>
+                      </div>
+                    {% endif %}
+                    </div>
+                    <h4 class="u-align-center u-product-control u-text u-text-body-alt-color u-text-default u-text-1">
+                        <a class="u-product-title-link" href="{% url 'shop:detail' product.slug %}">{{ product.title }}</a>
+                    </h4>
+                    {% if product.subcategory %}
+                    <div class="u-align-center u-product-control u-text u-text-default u-text-2" style="font-size: 0.95rem; color: #888;">
+                        {{ product.subcategory.title }}
+                    </div>
+                    {% endif %}
+                    <div class="u-align-center u-product-control u-product-price u-product-price-1" data-add-zero-cents="true">
+                        <div class="u-price-wrapper u-spacing-10">
+                            {% if product.discount %}
+                                <div class="u-old-price u-text-palette-2-base" style="text-decoration: line-through !important;">{{ product.price|format_thousands }}</div>
+                            {% endif %}
+                            <div class="u-price u-text-palette-3-base" style="font-size: 1.25rem; font-weight: 700;">
+                                {% if product.discount %}{{ product.sell_price|format_thousands }}{% else %}{{ product.price|format_thousands }}{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% if product.quantity > 0 %}
+                    <a href="{% url 'carts:add_to_cart' product.slug %}" class="u-align-center u-border-none u-btn u-btn-rectangle u-button-style u-palette-3-base u-product-control u-text-body-color u-btn-1" data-product-button-click-type="go-to-page">Купить</a>
+                    {% else %}
+                    <div class="u-align-center u-product-control u-text u-text-body-alt-color u-text-1">
+                        Нет в наличии
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <div class="u-align-center u-text u-text-body-alt-color u-text-1">Нет товаров для отображения.</div>
+            {% endfor %}
+        </div>                
+              </div>
+              
+              {% if is_paginated %}
+                <div class="pagination-container u-pagination d-flex justify-content-center">
+                  <nav class="pagination-nav" aria-label="Page navigation">
+                    <ul class="pagination">
+                      {% if page_obj.has_previous %}
+                        <li class="page-item u-pagination-item">  <!-- Добавлен класс u-pagination-item -->
+                          <a href="?page=1{% if query_params %}&{{ query_params }}{% endif %}" class="page-link">&laquo; Первая</a>
+                        </li>
+                        <li class="page-item u-pagination-item">  <!-- Добавлен класс u-pagination-item -->
+                          <a href="?page={{ page_obj.previous_page_number }}{% if query_params %}&{{ query_params }}{% endif %}" class="page-link">&lsaquo; Предыдущая</a>
+                        </li>
+                      {% endif %}
+
+                      {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                          <li class="page-item u-pagination-item active u-text u-text-body-alt-color u-text-1">  <!-- Добавлен класс u-pagination-item -->
+                            <span class="page-link">{{ num }}</span>
+                          </li>
+                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                          <li class="page-item u-pagination-item">  <!-- Добавлен класс u-pagination-item -->
+                            <a href="?page={{ num }}{% if query_params %}&{{ query_params }}{% endif %}" class="page-link">{{ num }}</a>
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+
+                      {% if page_obj.has_next %}
+                        <li class="page-item u-pagination-item">  <!-- Добавлен класс u-pagination-item -->
+                          <a href="?page={{ page_obj.next_page_number }}{% if query_params %}&{{ query_params }}{% endif %}" class="page-link">Следующая &rsaquo;</a>
+                        </li>
+                        <li class="page-item u-pagination-item">  <!-- Добавлен класс u-pagination-item -->
+                          <a href="?page={{ page_obj.paginator.num_pages }}{% if query_params %}&{{ query_params }}{% endif %}" class="page-link">Последняя &raquo;</a>
+                        </li>
+                      {% endif %}
+                    </ul>
+                  </nav>
+                </div>
+              {% endif %}
+
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  <!-- JavaScript for favorite functionality -->
+  <script src="{% static 'favorite-functions.js' %}"></script>
+{% endblock %}

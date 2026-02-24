@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Корзина{% endblock %}\
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'cart.css' %}">
+<section class="u-clearfix u-image u-valign-middle-md u-section-1" id="sec-6a4e" data-image-width="1920" data-image-height="1003">
+    <div class="u-clearfix u-sheet u-sheet-1">
+    <h2 style="text-align: center; color: white;">Корзина</h2>
+    <div class="cart-container">
+
+    {% for item in cart_items %}
+    <div class="cart-item" data-item-id="{{ item.id }}">
+        <img src="{{ item.product.images.first.image.url }}" alt="{{ item.product.title }}">
+        <div class="item-details">
+            <h3><a href="{{ item.product.get_absolute_url }}">{{ item.product.title }}</a></h3>
+            <p>Цена: {{ item.product.price }} ₽</p>
+        </div>
+        <div class="quantity-control">
+            <button onclick="changeQuantity({{ item.id }}, -1)" class="qty-button">-</button>
+            <span class="item-quantity">{{ item.quantity }}</span>
+            <button onclick="changeQuantity({{ item.id }}, 1)" class="qty-button">+</button>
+        </div>
+        <button class="close-btn" onclick="deleteItem({{ item.id }})">×</button>
+    </div>
+    {% empty %}
+    <p>Корзина пуста.</p>
+    {% endfor %}
+
+    <!-- Общая стоимость -->
+    <div class="total-price">Итого: <span id="total-sum">{{ total_sum }}</span> ₽</div>
+
+    <!-- Кнопка оформления -->
+    <button class="checkout-btn"><a href="{% url 'carts:checkout' %}">Оформить заказ</a></button>
+</div>
+
+<!-- Скрипт для AJAX-запросов -->
+<script type="text/javascript">
+    var updateUrlTemplate = "{% url 'carts:update_cart' item_id=0 %}".replace("/0/", "/");
+</script>
+
+<script type="text/javascript">
+    function changeQuantity(itemId, delta) {
+    var url = updateUrlTemplate + itemId + "/";
+    $.ajax({
+        url: url,
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            item_id: itemId,
+            quantity_delta: delta
+        },
+        success: function(response) {
+            if (response.success) {
+                // Найдём элемент с данным ID и обновим количество
+                var itemElement = $('div[data-item-id="' + itemId + '"]');
+                var qtySpan = itemElement.find('.item-quantity');
+                var currentQty = parseInt(qtySpan.text());
+                var newQty = currentQty + delta;
+
+                if (newQty <= 0) {
+                    // Если товар удалён, убираем элемент
+                    itemElement.fadeOut(function() {
+                        $(this).remove();
+                    });
+                } else {
+                    // Обновляем количество
+                    qtySpan.text(newQty);
+                }
+
+                // Обновляем общую сумму и количество
+                $('#total-sum').text(response.total_sum);
+                $('.total-products-count').text(response.total_quantity);
+                $('.u-shopping-cart-count').text(response.total_quantity);
+
+            } else {
+                alert(response.error || "Ошибка при обновлении корзины.");
+            }
+        },
+        error: function() {
+            alert("Ошибка при изменении количества.");
+        }
+    });
+}
+
+    
+    function deleteItem(itemId) {
+        var removeUrl = "{% url 'carts:remove_from_cart' item_id=0 %}".replace('/0/', '/' + itemId + '/');
+
+        $.ajax({
+            url: removeUrl,
+            type: 'POST',
+            dataType: 'json',
+            data: { csrfmiddlewaretoken: '{{ csrf_token }}' },
+            success: function(response) {
+                // Найдем элемент с данным item_id и удалим его из DOM
+                $('div[data-item-id="' + itemId + '"]').fadeOut(function() {
+                    $(this).remove(); // полное удаление из DOM
+                });
+                
+                // Дополнительно можем обновить итоговую сумму и кол-во товаров
+                $("#total-sum").text(response.total_sum); // Обновляем итоговую сумму
+                $(".total-products-count").text(response.total_products_count); // Обновляем кол-во товаров
+                $('.u-shopping-cart-count').text(response.total_quantity);
+            },
+            error: function(xhr, status, error) {
+                alert("Ошибка при удалении товара!");
+            }
+        });
+    }
+</script>
+</section>
+{% endblock %}

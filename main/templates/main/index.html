@@ -1,0 +1,329 @@
+{% extends "base.html" %}
+{% load static %}
+{% load shop_filters %}
+{% block title %}Главная{% endblock %}
+
+{% block meta_tags %}
+    <meta name="description" content="Интернет-магазин">
+    <meta name="keywords" content="Интернет-магазин, товары, акции">
+    <meta name="author" content="Название компании">
+{% endblock %}
+
+{% block content %}
+    <section class="u-clearfix u-section-1" id="block-4">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-border-4 u-border-grey-25 u-container-align-center-xl u-container-style u-custom-color-8 u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-group u-radius u-shape-round u-group-1">
+          <div class="u-container-layout u-valign-middle-lg u-valign-middle-sm u-valign-middle-xl u-valign-middle-xs u-container-layout-1"><!--position-->
+            <div data-position="" class="u-position u-position-1"><!--block-->
+              <div class="u-block">
+                <div class="u-block-container u-clearfix"><!--block_header-->
+
+      <!-- Фильтр категорий -->
+      <aside class="u-border-2 u-border-custom-color-1 u-indent-40 u-sidebar u-block-2618-1">
+        <div class="u-block u-indent-30 u-block-2618-2">
+          <div class="u-block-container u-clearfix">
+            <h5 class="u-align-center u-block-header u-h-spacing-0 u-text u-text-body-alt-color u-v-spacing-0 u-block-2618-3">
+            <a href="{% url 'shop:shop' %}" class="category-link">Категории</a>
+            </h5>
+            <div class="u-block-content u-text u-text-body-alt-color u-block-2618-4">
+              <nav class="categories-nav">
+                <ul class="u-unstyled">
+                  {% for category in categories %}
+                    <li class="category-item {% if selected_category and selected_category.slug == category.slug %}active{% endif %}">
+                      <a href="?category={{ category.slug }}" class="category-link">
+                        {{ category.title }}
+                      </a>
+                      {% if category.subcategories.all %}
+                        <ul class="subcategories-list">
+                          {% for subcategory in category.subcategories.all %}
+                            <li class="subcategory-item {% if selected_subcategory and selected_subcategory.slug == subcategory.slug %}active{% endif %}">
+                              <a href="?category={{ category.slug }}&subcategory={{ subcategory.slug }}" class="subcategory-link">
+                                {{ subcategory.title }}
+                              </a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+        <div class="u-block u-indent-30 u-block-2618-27">
+          <div class="u-block-container u-clearfix">
+            <h5 class="u-align-center u-block-header u-h-spacing-0 u-text u-text-body-alt-color u-v-spacing-0 u-block-2618-28">Фильтры</h5>
+            <div class="u-block-content u-text u-text-body-alt-color u-block-2618-29">
+              <form method="get" action="" class="filters-form">
+                <div class="u-form-group">
+                  <label class="u-label u-text-body-alt-color">Цена от:</label>
+                  <input type="number" name="price_min" class="u-field-input" min="0" value="{{ request.GET.price_min }}">
+                </div>
+                <div class="u-form-group">
+                  <label class="u-label u-text-body-alt-color">Цена до:</label>
+                  <input type="number" name="price_max" class="u-field-input" min="0" value="{{ request.GET.price_max }}">
+                </div>
+                <button type="submit" class="u-btn u-button-style">Применить</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </aside>
+                </div>
+              </div><!--/block-->
+            </div><!--/position-->
+          </div>
+        </div>
+        <div class="u-container-style u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-grey-25 u-group u-radius u-shape-round u-group-2">
+          <div class="u-container-layout u-container-layout-2">
+            <div class="u-container-style u-custom-color-8 u-expanded-width u-group u-radius u-shape-round u-group-3">
+              <div class="u-container-layout u-container-layout-3">
+                <h1 class="u-align-center u-text u-text-default u-text-3">Хиты Продаж</h1>
+                <div class="u-expanded-width u-layout-horizontal u-products u-products-1" data-site-sorting-prop="created" data-site-sorting-order="desc" data-max-items="3" data-products-datasource="site" data-items-per-page="3" data-site-category="" data-products-id="{{ product.id }}">
+                  <div class="u-list-control"></div>
+                  <div class="u-repeater u-repeater-1">
+                      {% for product in bestsellers %}
+                    <div class="u-align-center u-container-align-center u-container-align-center-lg u-container-align-center-md u-container-align-center-sm u-container-align-center-xl u-container-style u-custom-color-8 u-products-item u-repeater-item u-shape-rectangle" data-product-id="{{ product.id }}">
+                        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
+                            <div style="position: relative;">
+                              <a class="u-product-title-link" href="{% url 'shop:detail' product.slug %}">
+                                    {% if product.images.first %}
+                                        <img alt="{{ product.title }}" class="u-expanded-width u-hover-feature u-image u-image-contain u-image-default u-product-control u-image-1" src="{{ product.images.first.image.url }}">
+                                        {% if product.quantity == 0 %}
+                                            <div class="u-not-available-overlay">
+                                                Нет в наличии
+                                            </div>
+                                        {% endif %}
+                                    {% endif %}
+                                </a>
+                            </div>
+                            <h4 class="u-product-control u-text u-text-4">
+                        <a class="u-product-title-link" href="{% url 'shop:detail' product.slug %}">{{ product.title }}</a>
+                    </h4>
+                            <div class="u-align-center u-product-control u-product-price u-product-price-1" data-add-zero-cents="true">
+                                <div class="u-price-wrapper u-spacing-10">
+                                    {% if product.discount %}
+                                        <div class="u-old-price u-text-palette-2-base" style="text-decoration: line-through !important;">{{ product.price|format_thousands }}</div>
+                                    {% endif %}
+                                    <div class="u-price u-text-palette-3-base" style="font-size: 1.25rem; font-weight: 700;">
+                                        {% if product.discount %}{{ product.sell_price|format_thousands }}{% else %}{{ product.price|format_thousands }}{% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% if product.quantity > 0 %}
+                            <a href="{% url 'carts:add_to_cart' product.slug %}" class="u-align-center u-border-none u-btn u-btn-rectangle u-button-style u-palette-3-base u-product-control u-text-body-color u-btn-1" data-product-button-click-type="go-to-page">Купить</a>
+                            {% else %}
+                            <div class="u-align-center u-product-control u-text u-text-default u-text-1">
+                                Нет в наличии
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="u-align-center">Нет товаров для отображения.</div>
+                    {% endfor %}
+              </div>
+            <div class="u-list-control"></div>
+                  <a class="u-gallery-nav u-gallery-nav-prev u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-body-alt-color u-gallery-nav-1" href="#" role="button"><span aria-hidden="true">
+                      <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg></span><span class="sr-only">
+                      <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg></span>
+                  </a>
+                  <a class="u-gallery-nav u-gallery-nav-next u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-body-alt-color u-gallery-nav-2" href="#" role="button"><span aria-hidden="true">
+                      <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg></span><span class="sr-only">
+                      <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg></span>
+                  </a>
+                </div><!--/products-->
+              </div>
+            </div>
+
+            <div class="u-carousel u-expanded-width u-gallery u-gallery-slider u-layout-carousel u-no-transition u-radius u-show-text-always u-gallery-1" id="carousel-a91d" data-interval="5000" data-u-ride="carousel" data-pause="false">
+  <ol class="u-absolute-hcenter u-carousel-indicators u-hidden u-carousel-indicators-1">
+    {% for carousel in carousels %}
+      <li data-u-target="#carousel-a91d" data-u-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}u-active {% endif %}u-grey-70 u-shape-circle" style="width: 10px; height: 10px;"></li>
+    {% endfor %}
+  </ol>
+
+  <div class="u-carousel-inner u-gallery-inner u-gallery-inner-1" role="listbox">
+    {% for carousel_item in carousels %}
+      <div class="u-carousel-item u-gallery-item {% if forloop.first %}active u-active{% endif %}" data-image="{{ carousel_item.images.first.image.url }}">
+        <div class="u-back-slide" data-image-width="1080" data-image-height="720">
+          <img class="u-back-image u-expanded" src="{{ carousel_item.images.first.image.url }}" alt="{{ carousel_item.title }}">
+        </div>
+
+        <div class="u-align-center u-container-align-center u-container-layout-disabled u-over-slide u-valign-middle u-over-slide-1">
+          <h2 class="u-align-center u-custom-font u-font-lobster u-gallery-heading u-text-body-alt-color" style="line-height: 2.2;">{{ carousel_item.title }}</h2>
+          <p class="u-align-center u-custom-font u-font-lobster u-gallery-text u-text-body-alt-color" style="line-height: 2.2; font-size: 3rem;">{{ carousel_item.content }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+              <a class="u-absolute-vcenter u-carousel-control u-carousel-control-prev u-hidden u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-carousel-control-1" href="#carousel-be0c" role="button" data-u-slide="prev"><span aria-hidden="true">
+                  <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg></span><span class="sr-only">
+                  <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg></span>
+              </a>
+              <a class="u-absolute-vcenter u-carousel-control u-carousel-control-next u-hidden u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-carousel-control-2" href="#carousel-be0c" role="button" data-u-slide="next"><span aria-hidden="true">
+                  <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg></span><span class="sr-only">
+                  <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-align-left u-clearfix u-container-align-left u-section-2" id="sec-de4d">
+      <div class="u-clearfix u-sheet u-valign-middle-sm u-valign-middle-xs u-sheet-1">
+        <div class="u-expanded-width u-tab-links-align-left u-tabs u-tabs-1">
+          <ul class="u-custom-color-1 u-spacing-15 u-tab-list u-unstyled u-tab-list-1" role="tablist"><li class="u-tab-item" role="presentation"><a class="active u-active-palette-3-base u-button-style u-hover-grey-10 u-tab-link u-text-active-black u-text-body-color u-text-hover-grey-75 u-tab-link-1" id="link-tab-0da5" href="#tab-0da5" role="tab" aria-controls="tab-0da5" aria-selected="true">Доставка</a>
+</li><li class="u-tab-item" role="presentation"><a class="u-active-palette-3-base u-button-style u-hover-grey-10 u-tab-link u-text-active-black u-text-body-color u-text-hover-grey-75 u-tab-link-2" id="link-tab-14b7" href="#tab-14b7" role="tab" aria-controls="tab-14b7" aria-selected="false">Способы оплаты</a>
+</li><li class="u-tab-item" role="presentation"><a class="u-active-palette-3-base u-button-style u-hover-grey-10 u-tab-link u-text-active-black u-text-body-color u-text-hover-grey-75 u-tab-link-3" id="link-tab-2917" href="#tab-2917" role="tab" aria-controls="tab-2917" aria-selected="false">Статус заказа</a>
+</li></ul>
+          <div class="u-tab-content">
+            <div class="u-align-left u-container-align-left u-container-style u-tab-active u-tab-pane u-white u-tab-pane-1" id="tab-0da5" role="tabpanel" aria-labelledby="link-tab-0da5">
+              <div class="u-container-layout u-valign-top u-container-layout-1">
+                <h5 class="u-align-center u-custom-font u-font-montserrat u-text u-text-1"> Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</h5>
+                <p class="u-align-center u-text u-text-palette-1-base u-text-2">Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                <p class="u-align-center u-text u-text-3">Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+              </div>
+            </div>
+            <div class="u-align-left u-container-align-left u-container-style u-tab-pane u-white u-tab-pane-2" id="tab-14b7" role="tabpanel" aria-labelledby="link-tab-14b7">
+              <div class="u-container-layout u-valign-middle u-container-layout-2">
+                <p class="u-align-center u-text u-text-4">Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.<br style="">
+                  <br style="">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&nbsp;Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                </p>
+              </div>
+            </div>
+            <div class="u-align-left u-container-align-left u-container-style u-tab-pane u-white u-tab-pane-3" id="tab-2917" role="tabpanel" aria-labelledby="link-tab-2917">
+              <div class="u-container-layout u-container-layout-3">
+                <h3 class="u-align-center u-custom-font u-font-montserrat u-text u-text-default u-text-5">Посмотреть статус заказа</h3>
+                  <p class="u-align-center">информация о статусе</p>
+                <a href="{% url 'orders:order_history' %}" class="u-align-center u-border-none u-btn u-button-style u-btn-1">Показать</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-align-center u-clearfix u-container-align-center u-custom-color-8 u-section-3" id="block-2">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <h1 class="u-text u-text-body-alt-color u-text-default-lg u-text-default-md u-text-default-sm u-text-default-xl u-text-1">Наши Акции </h1>
+        <div class="u-expanded-width u-layout-horizontal u-products u-products-1" data-site-sorting-prop="created" data-site-sorting-order="desc" data-products-datasource="site" data-items-per-page="4" data-site-category="" data-products-id="products-2">
+          <div class="u-list-control"></div>
+          <div class="u-repeater u-repeater-1">
+            {% for product in promos %}
+            <div class="u-align-center u-container-align-center u-container-style u-products-item u-repeater-item u-repeater-item-1" data-product-id="{{ product.id }}">
+                <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
+                    <div style="position: relative;">
+                        <a class="u-product-title-link" href="{% url 'shop:detail' product.slug %}">
+                            {% if product.images.first %}
+                                <img alt="{{ product.title }}" class="u-expanded-width u-hover-feature u-image u-image-contain u-image-default u-product-control u-image-1" src="{{ product.images.first.image.url }}">
+                                {% if product.quantity == 0 %}
+                                    <div class="u-not-available-overlay">
+                                        Нет в наличии
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </a>
+                    </div>
+                    <h4 class="u-align-center u-product-control u-text u-text-body-alt-color u-text-default u-text-1">
+                        <a class="u-product-title-link" href="{% url 'shop:detail' product.slug %}">{{ product.title }}</a>
+                    </h4>
+                    <div class="u-align-center u-product-control u-product-price u-product-price-1" data-add-zero-cents="true">
+                        <div class="u-price-wrapper u-spacing-10">
+                            {% if product.discount %}
+                                <div class="u-old-price u-text-palette-2-base" style="text-decoration: line-through !important;">{{ product.price|format_thousands }}</div>
+                            {% endif %}
+                            <div class="u-price u-text-palette-3-base" style="font-size: 1.25rem; font-weight: 700;">
+                                {% if product.discount %}{{ product.sell_price|format_thousands }}{% else %}{{ product.price|format_thousands }}{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% if product.quantity > 0 %}
+                    <a href="{% url 'carts:add_to_cart' product.slug %}" class="u-align-center u-border-none u-btn u-btn-rectangle u-button-style u-palette-3-base u-product-control u-text-body-color u-btn-1" data-product-button-click-type="go-to-page">Купить</a>
+                    {% else %}
+                    <div class="u-align-center u-product-control u-text u-text-default u-text-1">
+                        Нет в наличии
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="u-list-control"></div>
+          <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-prev u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-1" href="#" role="button"><span aria-hidden="true">
+              <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg></span><span class="sr-only">
+              <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg></span>
+          </a>
+          <a class="u-absolute-vcenter u-gallery-nav u-gallery-nav-next u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-gallery-nav-2" href="#" role="button"><span aria-hidden="true">
+              <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg></span><span class="sr-only">
+              <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg></span>
+          </a>
+        </div><!--/products-->
+      </div>
+    </section>
+    <section class="u-align-center u-clearfix u-container-align-center u-section-4" id="block-3">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <h2 class="u-text u-text-body-alt-color u-text-default u-text-1">Официальная информация</h2>
+        <div class="u-accordion u-expanded-width u-faq u-spacing-10 u-accordion-1" role="tablist">
+          <div class="u-accordion-item">
+            <a class="active u-accordion-link u-active-white u-button-style u-hover-white u-white u-accordion-link-1" id="link-accordion-f600" aria-controls="accordion-f600" aria-selected="true" role="tab"><span class="u-accordion-link-text">Справка</span><span class="u-accordion-link-icon u-icon u-text-grey-50 u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 448 448" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-3ae2"></use></svg><svg class="u-svg-content" viewBox="0 0 448 448" id="svg-3ae2" style=""><path d="m272 184c-4.417969 0-8-3.582031-8-8v-176h-80v176c0 4.417969-3.582031 8-8 8h-176v80h176c4.417969 0 8 3.582031 8 8v176h80v-176c0-4.417969 3.582031-8 8-8h176v-80zm0 0"></path></svg></span>
+            </a>
+            <div class="u-accordion-active u-accordion-pane u-container-style u-white u-accordion-pane-1" id="accordion-f600" aria-labelledby="link-accordion-f600" role="tabpanel">
+              <div class="u-container-layout u-container-layout-1">
+                <div class="fr-view u-clearfix u-rich-text u-text">
+                  <p>Answer. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id suscipit ex. Suspendisse rhoncus laoreet purus quis elementum. Phasellus sed efficitur dolor, et ultricies sapien. Quisque fringilla sit amet dolor commodo efficitur. Aliquam et sem odio. In ullamcorper nisi nunc, et molestie ipsum iaculis sit amet.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="u-accordion-item">
+            <a class="u-accordion-link u-active-white u-button-style u-hover-white u-white u-accordion-link-2" id="link-accordion-72f4" aria-controls="accordion-72f4" aria-selected="false" role="tab"><span class="u-accordion-link-text">Поддержка</span><span class="u-accordion-link-icon u-icon u-text-grey-50 u-icon-2"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 448 448" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-05a3"></use></svg><svg class="u-svg-content" viewBox="0 0 448 448" id="svg-05a3" style=""><path d="m272 184c-4.417969 0-8-3.582031-8-8v-176h-80v176c0 4.417969-3.582031 8-8 8h-176v80h176c4.417969 0 8 3.582031 8 8v176h80v-176c0-4.417969 3.582031-8 8-8h176v-80zm0 0"></path></svg></span>
+            </a>
+            <div class="u-accordion-pane u-container-style u-white u-accordion-pane-2" id="accordion-72f4" aria-labelledby="link-accordion-72f4" role="tabpanel">
+              <div class="u-container-layout u-container-layout-2">
+                <div class="u-clearfix u-rich-text u-text">
+                  <p>Answer. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id suscipit ex. Suspendisse rhoncus laoreet purus quis elementum. Phasellus sed efficitur dolor, et ultricies sapien. Quisque fringilla sit amet dolor commodo efficitur. Aliquam et sem odio. In ullamcorper nisi nunc, et molestie ipsum iaculis sit amet.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="u-accordion-item">
+            <a class="u-accordion-link u-active-white u-button-style u-hover-white u-white u-accordion-link-3" id="link-accordion-854e" aria-controls="accordion-854e" aria-selected="false" role="tab"><span class="u-accordion-link-text">Сервис</span><span class="u-accordion-link-icon u-icon u-text-grey-50 u-icon-3"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 448 448" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4a3a"></use></svg><svg class="u-svg-content" viewBox="0 0 448 448" id="svg-4a3a" style=""><path d="m272 184c-4.417969 0-8-3.582031-8-8v-176h-80v176c0 4.417969-3.582031 8-8 8h-176v80h176c4.417969 0 8 3.582031 8 8v176h80v-176c0-4.417969 3.582031-8 8-8h176v-80zm0 0"></path></svg></span>
+            </a>
+            <div class="u-accordion-pane u-container-style u-white u-accordion-pane-3" id="accordion-854e" aria-labelledby="link-accordion-854e" role="tabpanel">
+              <div class="u-container-layout u-container-layout-3">
+                <div class="u-clearfix u-rich-text u-text">
+                  <p>Answer. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id suscipit ex. Suspendisse rhoncus laoreet purus quis elementum. Phasellus sed efficitur dolor, et ultricies sapien. Quisque fringilla sit amet dolor commodo efficitur. Aliquam et sem odio. In ullamcorper nisi nunc, et molestie ipsum iaculis sit amet.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}

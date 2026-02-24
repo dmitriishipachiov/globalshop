@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Ваш заказ{% endblock %}
+
+{% block meta_tags %}
+  <meta name="description" content="Интернет-магазин" />
+  <meta name="keywords" content="Интернет-магазин, товары, акции" />
+  <meta name="author" content="Название компании" />
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'checkout.css' %}">
+<section class="u-clearfix u-image u-valign-middle-md u-section-1" id="sec-6a4e" data-image-width="1920" data-image-height="1003">
+<div class="u-clearfix u-sheet u-sheet-1" style="font-size: 0.95rem; color: #fff;">
+<div class="form-row">
+    <div class="form-col">
+<h1>Детали заказа {{ order.id }}</h1>
+
+<!-- Контактная информация пользователя -->
+<h2>Контактная информация:</h2>
+<p><strong>Имя:</strong> {{ order.user.first_name }}</p>
+<p><strong>Фамилия:</strong> {{ order.user.last_name }}</p>
+<p><strong>Телефон:</strong> {{ order.user.phone_number }}</p>
+<p><strong>Email:</strong> {{ order.user.email }}</p>
+
+<!-- Адрес, если существует -->
+{% if address %}
+<h2>Адрес доставки:</h2>
+<p>{{ address }}</p>
+{% endif %}
+
+<p>Статус: {{ order.status }}</p>
+<p>Дата создания: {{ order.created_at }}</p>
+<p>Общая стоимость: {{ order.total_cost }}</p>
+<p>Скидка: {{ order.discount }}</p>
+<p>Итоговая стоимость: {{ order.total_cost|add:discount }}</p>
+<h2>Товары в заказе:</h2>
+{% if order.items.all %}
+    <table>
+        <tr>
+            <th>Название товара</th>
+            <th>Количество</th>
+            <th>Цена</th>
+        </tr>
+        {% for item in order.items.all %}
+        <tr>
+            <td>{{ item.product.title }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.subtotal }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>В заказе нет товаров.</p>
+{% endif %}
+</div>
+</div>
+</section>
+{% endblock %}

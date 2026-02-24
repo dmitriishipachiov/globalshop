@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Личный кабинет{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'checkout.css' %}">
+<section class="u-clearfix u-image u-valign-middle-md u-section-1" id="sec-6a4e" data-image-width="1920" data-image-height="1003">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <h1 style="text-align: center; color: white;">Личный кабинет</h1>
+    <div class="checkout-container">
+        <form method="post" class="checkout-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <h3 class="form-title">Контактная информация</h3>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="first_name">Имя</label>
+                        <p>{{ form.instance.first_name }}</p>
+                    </div>
+                    <div class="form-col">
+                        <label for="last_name">Фамилия</label>
+                        <p>{{ form.instance.last_name }}</p>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="email">Email</label>
+                        <p>{{ form.instance.email }}</p>
+                    </div>
+                    <div class="form-col">
+                        <label for="phone">Телефон</label>
+                        <p>{{ form.instance.phone_number }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3 class="form-title">Адреса доставки</h3>
+                {% if addresses %}
+                    {% for address in addresses %}
+                        <div class="address-item">
+                            <h4>Адрес {{ forloop.counter }}</h4>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="city">Город</label>
+                                    <p>{{ address.city }}</p>
+                                </div>
+                                <div class="form-col">
+                                    <label for="street">Улица</label>
+                                    <p>{{ address.street }}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="house">Дом</label>
+                                    <p>{{ address.house }}</p>
+                                </div>
+                                <div class="form-col">
+                                    <label for="building">Корпус</label>
+                                    <p>{{ address.building }}</p>
+                                </div>
+                                <div class="form-col">
+                                    <label for="apartment">Квартира</label>
+                                    <p>{{ address.apartment }}</p>
+                                </div>
+                                <div class="form-col">
+                                    <label for="postal_code">Индекс</label>
+                                    <p>{{ address.postal_code }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Адреса доставки не установлены.</p>
+                {% endif %}
+            </div>
+            
+        </form>
+        <form method="post" action="{% url 'accounts:logout' %}" class="logout-form">
+            {% csrf_token %}
+            <button type="submit" class="u-active-palette-1-base u-border-2 u-border-black u-btn u-button-style u-hover-palette-3-base u-palette-1-base u-text-active-black u-text-black u-text-hover-black u-btn-1">Выйти из аккаунта</button>
+        </form>
+
+        <div class="order-history">
+            <h2>История заказов</h2>
+            {% if orders %}
+                <ul>
+                    {% for order in orders %}
+                        <li>
+                            <strong>Номер заказа:</strong> {{ order.id }}<br>
+                            <strong>Статус:</strong> {{ order.status }}<br>
+                            <strong>Общая стоимость:</strong> {{ order.total_cost }}<br>
+                            <strong>Дата покупки:</strong> {{ order.created_at }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Заказы не найдены.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</section>
+{% endblock %}

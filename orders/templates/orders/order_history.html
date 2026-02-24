@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'checkout.css' %}">
+<section class="u-clearfix u-image u-valign-middle-md u-section-1" id="sec-6a4e" data-image-width="1920" data-image-height="1003">
+<div class="u-clearfix u-sheet u-sheet-1">
+    <div class="order-history">
+            <h2 style="text-align: center; color: white;">Статус заказа</h2>
+            {% if orders %}
+                <ul style="text-align: center; color: white;">
+                    {% for order in orders %}
+                        <li>
+                            <br><strong>Номер заказа:</strong> {{ order.id }}<br>
+                            {% for item in order.items.all %}
+                            <strong>Наименование:</strong> {{ item.product.title }}<br>
+                            {% endfor %}
+                            <strong>Статус:</strong> {{ order.status }}<br>
+                            <strong>Общая стоимость:</strong> {{ order.total_cost }}<br>
+                            <strong>Дата покупки:</strong> {{ order.created_at }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+            <h4 style="text-align: center; color: white;">Заказы не найдены.</h4>
+            {% endif %}
+    </div>            
+</div>
+</section>
+{% endblock %}

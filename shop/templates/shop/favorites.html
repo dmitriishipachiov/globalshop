@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load shop_filters %}
+{% block title %}
+  Избранные товары
+{% endblock %}
+
+{% block meta_tags %}
+  <meta name="description" content="Интернет-магазин" />
+  <meta name="keywords" content="Интернет-магазин, товары, акции" />
+  <meta name="author" content="Название компании" />
+{% endblock %}
+
+{% block content %}
+  <link rel="stylesheet" href="{% static 'Product-List-Template.css' %}" media="screen" />
+  <section class="u-align-center u-clearfix u-container-align-center u-section-1" id="sec-1ef8">
+    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1" style="font-size: 0.95rem; color: #fff;">
+      <h2 class="u-align-center u-text u-text-default u-text-1">Избранные товары</h2>
+
+      <!-- Список избранных товаров -->
+      <div id="favorite-list" class="u-repeater u-repeater-1">
+        {% for product in user.favorite_products.all %}
+          <div class="u-align-center u-container-align-center u-container-style u-products-item u-repeater-item u-repeater-item-1" data-product-id="{{ product.id }}">
+            <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
+              <div class="product-image-container" style="position: relative;">
+                <a class="u-product-title-link" href="{% url 'shop:detail' product.slug %}">
+                  {% if product.images.first %}
+                    <img alt="{{ product.title }}" class="u-expanded-width u-hover-feature u-image u-image-contain u-image-default u-product-control u-image-1" src="{{ product.images.first.image.url }}" />
+                    {% if product.quantity == 0 %}
+                      <div class="u-not-available-overlay">Нет в наличии</div>
+                    {% endif %}
+                  {% endif %}
+                </a>
+                <!-- Favorite icon on image -->
+                <div class="favorite-icon-container">
+                  <form method="post" action="{% url 'shop:favorite_toggle' product.slug %}" class="favorite-form" data-product-slug="{{ product.slug }}" onsubmit="return false;">
+                    {% csrf_token %}
+                    <button type="submit" class="favorite-button" style="background: none; border: none; padding: 0; cursor: pointer;"><i class="favorite-icon {% if product in user.favorite_products.all %}favorited{% endif %}">♥</i></button>
+                  </form>
+                </div>
+              </div>
+              <h4 class="u-align-center u-product-control u-text u-text-default u-text-1"><a class="u-product-title-link" href="{% url 'shop:detail' product.slug %}">{{ product.title }}</a></h4>
+              {% if product.subcategory %}
+                <div class="u-align-center u-product-control u-text u-text-default u-text-2" style="font-size: 0.95rem; color: #888;">{{ product.subcategory.title }}</div>
+              {% endif %}
+              <div class="u-align-center u-product-control u-product-price u-product-price-1" data-add-zero-cents="true">
+                <div class="u-price-wrapper u-spacing-10">
+                  {% if product.discount %}
+                    <div class="u-old-price" style="text-decoration: line-through !important;">{{ product.price|format_thousands }}</div>
+                  {% endif %}
+                  <div class="u-price u-text-palette-3-base" style="font-size: 1.25rem; font-weight: 700;">
+                    {% if product.discount %}
+                      {{ product.sell_price|format_thousands }}
+                    {% else %}
+                      {{ product.price|format_thousands }}
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+              {% if product.quantity > 0 %}
+                <a href="{% url 'carts:add_to_cart' product.slug %}" class="u-align-center u-border-2 u-border-grey-25 u-btn u-btn-rectangle u-button-style u-palette-3-base u-product-control u-text-body-color u-btn-1" data-product-button-click-type="go-to-page">Купить</a>
+              {% else %}
+                <div class="u-align-center u-product-control u-text u-text-default u-text-1">Нет в наличии</div>
+              {% endif %}
+            </div>
+          </div>
+        {% empty %}
+          <div>У вас нет избранных товаров.</div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- JavaScript for favorite functionality -->
+  <script src="{% static 'favorite-functions.js' %}"></script>
+{% endblock %}

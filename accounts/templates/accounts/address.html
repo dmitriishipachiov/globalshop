@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <h2>Ваши адреса</h2>
+  {% if addresses %}
+    {% for address in addresses %}
+      <div class="address-item">
+        <h3>Адрес {{ forloop.counter }}</h3>
+        <p>{{ address.city }}, {{ address.street }}, дом {{ address.house }}{% if address.building %}, корпус {{ address.building }}{% endif %}, кв. {{ address.apartment }}, индекс {{ address.postal_code }}</p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>Адреса не найдены.</p>
+  {% endif %}
+
+  <h2>Добавить новый адрес</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+  </form>
+{% endblock %}

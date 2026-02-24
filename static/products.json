@@ -1,0 +1,507 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "iphone-16-plus",
+      "title": "Iphone 16 Plus",
+      "description": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "price": "75660.00",
+      "oldPrice": "78000.00",
+      "quantity": 19,
+      "currency": "USD",
+      "sku": "",
+      "outOfStock": false,
+      "isFeatured": true,
+      "saleEnabled": true,
+      "saleStart": "",
+      "saleEnd": "",
+      "categories": [
+        "1"
+      ],
+      "variations": [],
+      "variationValues": {},
+      "images": [
+        {
+          "url": "/media/shop_images/aifon_3mnwPm7.jpeg"
+        },
+        {
+          "url": "/media/shop_images/aiphon1.jpeg"
+        }
+      ],
+      "created": 1771876084818,
+      "updated": 1771876084818,
+      "isDefault": true,
+      "translations": {
+        "ru": {
+          "name": "iphone-16-plus",
+          "title": "Iphone 16 Plus",
+          "description": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+          "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        }
+      }
+    },
+    {
+      "id": "2",
+      "name": "spark",
+      "title": "Spark",
+      "description": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "price": "27742.00",
+      "oldPrice": "28600.00",
+      "quantity": 20,
+      "currency": "USD",
+      "sku": "",
+      "outOfStock": false,
+      "isFeatured": true,
+      "saleEnabled": true,
+      "saleStart": "",
+      "saleEnd": "",
+      "categories": [
+        "1"
+      ],
+      "variations": [],
+      "variationValues": {},
+      "images": [
+        {
+          "url": "/media/shop_images/spark.jpeg"
+        },
+        {
+          "url": "/media/shop_images/spark52.jpeg"
+        }
+      ],
+      "created": 1771876084819,
+      "updated": 1771876084819,
+      "isDefault": true,
+      "translations": {
+        "ru": {
+          "name": "spark",
+          "title": "Spark",
+          "description": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+          "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        }
+      }
+    },
+    {
+      "id": "3",
+      "name": "xiomi",
+      "title": "Xiomi",
+      "description": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "price": "29841.00",
+      "oldPrice": "30450.00",
+      "quantity": 20,
+      "currency": "USD",
+      "sku": "",
+      "outOfStock": false,
+      "isFeatured": true,
+      "saleEnabled": true,
+      "saleStart": "",
+      "saleEnd": "",
+      "categories": [
+        "1"
+      ],
+      "variations": [],
+      "variationValues": {},
+      "images": [
+        {
+          "url": "/media/shop_images/xiomi09.jpeg"
+        },
+        {
+          "url": "/media/shop_images/xiomi30.jpeg"
+        },
+        {
+          "url": "/media/shop_images/xiomi60.jpeg"
+        }
+      ],
+      "created": 1771876084819,
+      "updated": 1771876084819,
+      "isDefault": true,
+      "translations": {
+        "ru": {
+          "name": "xiomi",
+          "title": "Xiomi",
+          "description": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+          "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        }
+      }
+    },
+    {
+      "id": "4",
+      "name": "redmi",
+      "title": "Redmi",
+      "description": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "price": "28310.00",
+      "oldPrice": "29800.00",
+      "quantity": 20,
+      "currency": "USD",
+      "sku": "",
+      "outOfStock": false,
+      "isFeatured": true,
+      "saleEnabled": true,
+      "saleStart": "",
+      "saleEnd": "",
+      "categories": [
+        "1"
+      ],
+      "variations": [],
+      "variationValues": {},
+      "images": [
+        {
+          "url": "/media/shop_images/redmi.jpeg"
+        },
+        {
+          "url": "/media/shop_images/xiomi60_uvbpKR8.jpeg"
+        }
+      ],
+      "created": 1771876084819,
+      "updated": 1771876084819,
+      "isDefault": true,
+      "translations": {
+        "ru": {
+          "name": "redmi",
+          "title": "Redmi",
+          "description": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+          "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        }
+      }
+    },
+    {
+      "id": "5",
+      "name": "ветровка",
+      "title": "Ветровка",
+      "description": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "price": "3140.00",
+      "oldPrice": "3140.00",
+      "quantity": 20,
+      "currency": "USD",
+      "sku": "",
+      "outOfStock": false,
+      "isFeatured": true,
+      "saleEnabled": false,
+      "saleStart": "",
+      "saleEnd": "",
+      "categories": [
+        "2"
+      ],
+      "variations": [],
+      "variationValues": {},
+      "images": [
+        {
+          "url": "/media/shop_images/vetrovka.jpeg"
+        },
+        {
+          "url": "/media/shop_images/vetrovka94.webp"
+        }
+      ],
+      "created": 1771876084820,
+      "updated": 1771876084820,
+      "isDefault": true,
+      "translations": {
+        "ru": {
+          "name": "ветровка",
+          "title": "Ветровка",
+          "description": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+          "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        }
+      }
+    },
+    {
+      "id": "6",
+      "name": "дождевик",
+      "title": "Дождевик",
+      "description": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "price": "950.00",
+      "oldPrice": "950.00",
+      "quantity": 8,
+      "currency": "USD",
+      "sku": "",
+      "outOfStock": false,
+      "isFeatured": true,
+      "saleEnabled": false,
+      "saleStart": "",
+      "saleEnd": "",
+      "categories": [
+        "2"
+      ],
+      "variations": [],
+      "variationValues": {},
+      "images": [
+        {
+          "url": "/media/shop_images/dozhdevik.jpeg"
+        },
+        {
+          "url": "/media/shop_images/dozhdevik1.jpeg"
+        }
+      ],
+      "created": 1771876084820,
+      "updated": 1771876084820,
+      "isDefault": true,
+      "translations": {
+        "ru": {
+          "name": "дождевик",
+          "title": "Дождевик",
+          "description": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+          "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        }
+      }
+    },
+    {
+      "id": "7",
+      "name": "джинсы",
+      "title": "Джинсы",
+      "description": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "price": "1282.50",
+      "oldPrice": "1350.00",
+      "quantity": 9,
+      "currency": "USD",
+      "sku": "",
+      "outOfStock": false,
+      "isFeatured": true,
+      "saleEnabled": true,
+      "saleStart": "",
+      "saleEnd": "",
+      "categories": [
+        "2"
+      ],
+      "variations": [],
+      "variationValues": {},
+      "images": [
+        {
+          "url": "/media/shop_images/djinsy.jpeg"
+        },
+        {
+          "url": "/media/shop_images/djinsy56.jpeg"
+        }
+      ],
+      "created": 1771876084820,
+      "updated": 1771876084820,
+      "isDefault": true,
+      "translations": {
+        "ru": {
+          "name": "джинсы",
+          "title": "Джинсы",
+          "description": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+          "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        }
+      }
+    },
+    {
+      "id": "8",
+      "name": "сапоги-зимние",
+      "title": "Сапоги зимние",
+      "description": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "price": "3420.00",
+      "oldPrice": "3800.00",
+      "quantity": 0,
+      "currency": "USD",
+      "sku": "",
+      "outOfStock": true,
+      "isFeatured": true,
+      "saleEnabled": true,
+      "saleStart": "",
+      "saleEnd": "",
+      "categories": [
+        "3"
+      ],
+      "variations": [],
+      "variationValues": {},
+      "images": [
+        {
+          "url": "/media/shop_images/sapogi4.jpeg"
+        },
+        {
+          "url": "/media/shop_images/sapogi.jpeg"
+        }
+      ],
+      "created": 1771876084821,
+      "updated": 1771876084821,
+      "isDefault": true,
+      "translations": {
+        "ru": {
+          "name": "сапоги-зимние",
+          "title": "Сапоги зимние",
+          "description": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+          "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        }
+      }
+    },
+    {
+      "id": "9",
+      "name": "кроссовки-спорт",
+      "title": "Кроссовки спорт",
+      "description": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "price": "2340.00",
+      "oldPrice": "2600.00",
+      "quantity": 4,
+      "currency": "USD",
+      "sku": "",
+      "outOfStock": false,
+      "isFeatured": true,
+      "saleEnabled": true,
+      "saleStart": "",
+      "saleEnd": "",
+      "categories": [
+        "3"
+      ],
+      "variations": [],
+      "variationValues": {},
+      "images": [
+        {
+          "url": "/media/shop_images/newbalance.jpeg"
+        },
+        {
+          "url": "/media/shop_images/newbalance1.jpeg"
+        }
+      ],
+      "created": 1771876084821,
+      "updated": 1771876084821,
+      "isDefault": true,
+      "translations": {
+        "ru": {
+          "name": "кроссовки-спорт",
+          "title": "Кроссовки спорт",
+          "description": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+          "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        }
+      }
+    },
+    {
+      "id": "10",
+      "name": "ботинки-демисезонные",
+      "title": "Ботинки демисезонные",
+      "description": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "price": "3880.00",
+      "oldPrice": "4000.00",
+      "quantity": 4,
+      "currency": "USD",
+      "sku": "",
+      "outOfStock": false,
+      "isFeatured": true,
+      "saleEnabled": true,
+      "saleStart": "",
+      "saleEnd": "",
+      "categories": [
+        "3"
+      ],
+      "variations": [],
+      "variationValues": {},
+      "images": [
+        {
+          "url": "/media/shop_images/botinki.jpeg"
+        },
+        {
+          "url": "/media/shop_images/botinkimuz.jpeg"
+        }
+      ],
+      "created": 1771876084821,
+      "updated": 1771876084821,
+      "isDefault": true,
+      "translations": {
+        "ru": {
+          "name": "ботинки-демисезонные",
+          "title": "Ботинки демисезонные",
+          "description": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+          "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        }
+      }
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "title": "Электроника",
+      "categoryId": null,
+      "created": 1771876084817,
+      "updated": 1771876084817,
+      "translations": {
+        "en": {
+          "title": "Электроника"
+        }
+      }
+    },
+    {
+      "id": "2",
+      "title": "Одежда",
+      "categoryId": null,
+      "created": 1771876084817,
+      "updated": 1771876084817,
+      "translations": {
+        "en": {
+          "title": "Одежда"
+        }
+      }
+    },
+    {
+      "id": "3",
+      "title": "Обувь",
+      "categoryId": null,
+      "created": 1771876084817,
+      "updated": 1771876084817,
+      "translations": {
+        "en": {
+          "title": "Обувь"
+        }
+      }
+    }
+  ],
+  "variations": [
+    {
+      "id": "1",
+      "title": "Color",
+      "items": [
+        {
+          "title": "Red",
+          "value": "#ff0000"
+        },
+        {
+          "title": "Green",
+          "value": "#00ff00"
+        },
+        {
+          "title": "Blue",
+          "value": "#0000ff"
+        }
+      ],
+      "created": 1771876084821,
+      "updated": 1771876084821,
+      "translations": {
+        "en": {
+          "title": "Color"
+        }
+      }
+    },
+    {
+      "id": "2",
+      "title": "Size",
+      "items": [
+        {
+          "title": "Small",
+          "value": "S"
+        },
+        {
+          "title": "Medium",
+          "value": "M"
+        },
+        {
+          "title": "Large",
+          "value": "L"
+        }
+      ],
+      "created": 1771876084821,
+      "updated": 1771876084821,
+      "translations": {
+        "en": {
+          "title": "Size"
+        }
+      }
+    }
+  ]
+}
