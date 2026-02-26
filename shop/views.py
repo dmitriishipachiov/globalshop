@@ -45,11 +45,25 @@ class ShopListView(ListView):
 
         # Apply search filter if search query is provided
         if search_query:
+            # First, try to find exact category or subcategory matches
+            category_matches = CategoryShop.objects.filter(title__icontains=search_query)
+            subcategory_matches = SubcategoryShop.objects.filter(title__icontains=search_query)
+
+            # Build Q objects for category and subcategory filtering
+            category_q = Q()
+            for category in category_matches:
+                category_q |= Q(category=category)
+
+            subcategory_q = Q()
+            for subcategory in subcategory_matches:
+                subcategory_q |= Q(subcategory=subcategory)
+
+            # Combine all search conditions
             queryset = queryset.filter(
                 Q(title__icontains=search_query) |
                 Q(description__icontains=search_query) |
-                Q(category__title__icontains=search_query) |
-                Q(subcategory__title__icontains=search_query)
+                category_q |
+                subcategory_q
             )
 
         # Apply category/subcategory filters

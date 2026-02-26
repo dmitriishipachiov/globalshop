@@ -20173,35 +20173,7 @@ aside .u-categories.u-categories-vertical ul {
 .pswp--touch .pswp__share-tooltip a {
   padding: 16px 12px;
 }
-a.pswp__share--facebook:before {
-  content: '';
-  display: block;
-  width: 0;
-  height: 0;
-  position: absolute;
-  top: -12px;
-  right: 15px;
-  border: 6px solid transparent;
-  border-bottom-color: #FFF;
-  -webkit-pointer-events: none;
-  -moz-pointer-events: none;
-  pointer-events: none;
-}
-a.pswp__share--facebook:hover {
-  background: #3E5C9A;
-  color: #FFF;
-}
-a.pswp__share--facebook:hover:before {
-  border-bottom-color: #3E5C9A;
-}
-a.pswp__share--twitter:hover {
-  background: #55ACEE;
-  color: #FFF;
-}
-a.pswp__share--pinterest:hover {
-  background: #CCC;
-  color: #CE272D;
-}
+
 a.pswp__share--download:hover {
   background: #DDD;
 }

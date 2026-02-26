@@ -38,7 +38,7 @@
       <div class="u-section-rows">
         <div class="u-clearfix u-color-var u-section-row u-sticky u-sticky-20a7 u-section-row-1" id="sec-46aa">
           <div class="u-clearfix u-sheet u-valign-middle-lg u-valign-middle-md u-sheet-1">
-            <form action="#" class="u-border-2 u-border-custom-color-1 u-custom-color-2 u-expanded-width-xs u-radius u-search u-search-layout-icon-input u-search-open-width-left u-search-right u-search-1" data-search-token="no-license" data-href="search/search.html" data-page-id="9286519">
+<form action="{% url 'shop:shop' %}" method="get" class="u-border-2 u-border-custom-color-1 u-custom-color-2 u-expanded-width-xs u-radius u-search u-search-layout-icon-input u-search-open-width-left u-search-right u-search-1" data-search-token="no-license" data-page-id="9286519" onsubmit="event.preventDefault(); this.submit();">
               <button class="u-search-button" type="submit">
                 <span class="u-custom-color-1 u-icon-rounded u-radius u-search-icon u-text-white u-search-icon-1">
                   <svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 56.966 56.966" style="">
@@ -52,7 +52,7 @@
                   </svg>
                 </span>
               </button>
-              <input class="u-search-input" type="search" name="search" value="" placeholder="Поиск товара" />
+<input class="u-search-input" type="search" name="search" value="{{ request.GET.search|default:'' }}" placeholder="Поиск товара" />
             </form>
             <a href="" class="u-active-none u-btn u-btn-rectangle u-button-style u-hover-none u-none u-text-custom-color-1 u-btn-1">
               <span class="u-icon u-text-palette-1-base">
@@ -68,7 +68,7 @@
           <div class="u-clearfix u-sheet u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-sheet-2">
             <nav data-position="" class="u-menu u-menu-one-level u-offcanvas u-menu-1" role="navigation">
               <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px; font-weight: 700;">
-                <a class="u-button-style u-custom-active-border-color u-custom-border u-custom-border-color u-custom-borders u-custom-hover-border-color u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-active-color u-custom-text-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-hamburger-link u-nav-link u-hamburger-link-1" href="#" tabindex="-1" aria-label="Open menu" aria-controls="8091">
+                <a class="u-button-style u-custom-active-border-color u-custom-border u-custom-border-color u-custom-borders u-custom-hover-border-color u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-active-color u-custom-text-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-hamburger-link u-nav-link u-hamburger-link-1" href="#" tabindex="0" aria-label="Open menu" aria-controls="8091">
                   <svg class="u-svg-link" viewBox="0 0 24 24">
                     <use xlink:href="#menu-hamburger"></use>
                   </svg>
@@ -100,13 +100,13 @@
               <div class="u-custom-menu u-nav-container-collapse" id="8091" role="region" aria-label="Menu panel">
                 <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
                   <div class="u-inner-container-layout u-sidenav-overflow">
-                    <div class="u-menu-close" tabindex="-1" aria-label="Close menu"></div>
+                    <div class="u-menu-close" tabindex="0" aria-label="Close menu"></div>
                     <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2" role="menubar">
                       <li role="none" class="u-nav-item">
                         <a role="menuitem" class="u-button-style u-nav-link" href="/">Главная</a>
                       </li>
                       <li role="none" class="u-nav-item">
-                        <a role="menuitem" class="u-button-style u-nav-link" href="{% url 'shop:shop' %}">Товары</a>
+                        <a role="menuitem" class="u-button-style u-nav-link" href="{% url "shop:shop" %}">Товары</a>
                       </li>
                       <li role="none" class="u-nav-item">
                         <a role="menuitem" class="u-button-style u-nav-link" href="{% url "about:about" %}">О нас</a>

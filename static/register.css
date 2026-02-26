@@ -2,18 +2,6 @@
   min-height: 641px;
 }
 
-/* body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #6e8efb, #a777e3);
-    color: #fff;
-} */
-
 .auth-container {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);

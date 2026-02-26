@@ -14,30 +14,28 @@
 {% block content %}
   <link rel="stylesheet" href="{% static 'Product-Details-Template.css' %}" media="screen" />
   <link rel="stylesheet" href="{% static 'favorite-icon.css' %}" />
-  <script class="u-script" type="text/javascript" src="{% static "jquery.js" %}" defer=""></script>
-    <script class="u-script" type="text/javascript" src="{% static "nicepage.js" %}" defer=""></script>
 
   <div class="u-clearfix u-content-layout u-sheet">
 <!-- Фильтр категорий -->
       <aside class="u-border-2 u-border-custom-color-1 u-indent-40 u-sidebar u-block-2618-1">
         <div class="u-block u-indent-30 u-block-2618-2">
           <div class="u-block-container u-clearfix">
-            <h5 class="u-align-center u-block-header u-h-spacing-0 u-text u-text-body-alt-color u-v-spacing-0 u-block-2618-3">
+            <h5 class="u-align-center u-block-header u-h-spacing-0 u-text u-text-custom-color-1 u-v-spacing-0 u-block-2618-3">
             <a href="{% url 'shop:shop' %}" class="category-link">Категории</a>
             </h5>
-            <div class="u-block-content u-text u-text-body-alt-color u-block-2618-4">
+            <div class="u-block-content u-text u-text-default u-text-3 u-block-2618-4">
               <nav class="categories-nav">
-                <ul class="u-unstyled">
+                <ul class="u-unstyled u-text u-text-custom-color-1">
                   {% for category in categories %}
                     <li class="category-item {% if selected_category and selected_category.slug == category.slug %}active{% endif %}">
-                      <a href="?category={{ category.slug }}" class="category-link">
+                      <a href="{% url 'shop:category' category.slug %}" class="u-button-style u-category-link u-nav-link u-text-active-palette-3-base u-text-body-alt-color">
                         {{ category.title }}
                       </a>
                       {% if category.subcategories.all %}
                         <ul class="subcategories-list">
                           {% for subcategory in category.subcategories.all %}
                             <li class="subcategory-item {% if selected_subcategory and selected_subcategory.slug == subcategory.slug %}active{% endif %}">
-                              <a href="?category={{ category.slug }}&subcategory={{ subcategory.slug }}" class="subcategory-link">
+                              <a href="{% url 'shop:shop' %}?category={{ category.slug }}&subcategory={{ subcategory.slug }}" class="u-button-style u-subcategory-link u-nav-link u-text-active-palette-3-base u-text-body-alt-color">
                                 {{ subcategory.title }}
                               </a>
                             </li>
