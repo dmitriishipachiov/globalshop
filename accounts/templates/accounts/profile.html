@@ -76,31 +76,16 @@
                 {% else %}
                     <p>Адреса доставки не установлены.</p>
                 {% endif %}
-            </div>
-            
+            </div>            
         </form>
+
+                <h4 class="u-align-center">Посмотреть историю заказов</h4>
+                <a href="{% url 'orders:order_history' %}" class="u-align-center u-border-none u-btn u-button-style u-btn-1">Показать</a>
+
         <form method="post" action="{% url 'accounts:logout' %}" class="logout-form">
             {% csrf_token %}
             <button type="submit" class="u-active-palette-1-base u-border-2 u-border-black u-btn u-button-style u-hover-palette-3-base u-palette-1-base u-text-active-black u-text-black u-text-hover-black u-btn-1">Выйти из аккаунта</button>
         </form>
-
-        <div class="order-history">
-            <h2>История заказов</h2>
-            {% if orders %}
-                <ul>
-                    {% for order in orders %}
-                        <li>
-                            <strong>Номер заказа:</strong> {{ order.id }}<br>
-                            <strong>Статус:</strong> {{ order.status }}<br>
-                            <strong>Общая стоимость:</strong> {{ order.total_cost }}<br>
-                            <strong>Дата покупки:</strong> {{ order.created_at }}
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>Заказы не найдены.</p>
-            {% endif %}
-        </div>
     </div>
 </div>
 </section>

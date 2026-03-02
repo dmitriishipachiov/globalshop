@@ -29,8 +29,8 @@
           "url": "/media/shop_images/aiphon1.jpeg"
         }
       ],
-      "created": 1771876084818,
-      "updated": 1771876084818,
+      "created": 1772487021684,
+      "updated": 1772487021684,
       "isDefault": true,
       "translations": {
         "ru": {
@@ -49,7 +49,7 @@
       "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
       "price": "27742.00",
       "oldPrice": "28600.00",
-      "quantity": 20,
+      "quantity": 19,
       "currency": "USD",
       "sku": "",
       "outOfStock": false,
@@ -70,8 +70,8 @@
           "url": "/media/shop_images/spark52.jpeg"
         }
       ],
-      "created": 1771876084819,
-      "updated": 1771876084819,
+      "created": 1772487021685,
+      "updated": 1772487021685,
       "isDefault": true,
       "translations": {
         "ru": {
@@ -114,8 +114,8 @@
           "url": "/media/shop_images/xiomi60.jpeg"
         }
       ],
-      "created": 1771876084819,
-      "updated": 1771876084819,
+      "created": 1772487021685,
+      "updated": 1772487021685,
       "isDefault": true,
       "translations": {
         "ru": {
@@ -155,8 +155,8 @@
           "url": "/media/shop_images/xiomi60_uvbpKR8.jpeg"
         }
       ],
-      "created": 1771876084819,
-      "updated": 1771876084819,
+      "created": 1772487021685,
+      "updated": 1772487021685,
       "isDefault": true,
       "translations": {
         "ru": {
@@ -196,8 +196,8 @@
           "url": "/media/shop_images/vetrovka94.webp"
         }
       ],
-      "created": 1771876084820,
-      "updated": 1771876084820,
+      "created": 1772487021685,
+      "updated": 1772487021685,
       "isDefault": true,
       "translations": {
         "ru": {
@@ -237,8 +237,8 @@
           "url": "/media/shop_images/dozhdevik1.jpeg"
         }
       ],
-      "created": 1771876084820,
-      "updated": 1771876084820,
+      "created": 1772487021686,
+      "updated": 1772487021686,
       "isDefault": true,
       "translations": {
         "ru": {
@@ -278,8 +278,8 @@
           "url": "/media/shop_images/djinsy56.jpeg"
         }
       ],
-      "created": 1771876084820,
-      "updated": 1771876084820,
+      "created": 1772487021686,
+      "updated": 1772487021686,
       "isDefault": true,
       "translations": {
         "ru": {
@@ -319,8 +319,8 @@
           "url": "/media/shop_images/sapogi.jpeg"
         }
       ],
-      "created": 1771876084821,
-      "updated": 1771876084821,
+      "created": 1772487021686,
+      "updated": 1772487021686,
       "isDefault": true,
       "translations": {
         "ru": {
@@ -360,8 +360,8 @@
           "url": "/media/shop_images/newbalance1.jpeg"
         }
       ],
-      "created": 1771876084821,
-      "updated": 1771876084821,
+      "created": 1772487021686,
+      "updated": 1772487021686,
       "isDefault": true,
       "translations": {
         "ru": {
@@ -401,8 +401,8 @@
           "url": "/media/shop_images/botinkimuz.jpeg"
         }
       ],
-      "created": 1771876084821,
-      "updated": 1771876084821,
+      "created": 1772487021687,
+      "updated": 1772487021687,
       "isDefault": true,
       "translations": {
         "ru": {
@@ -419,8 +419,8 @@
       "id": "1",
       "title": "Электроника",
       "categoryId": null,
-      "created": 1771876084817,
-      "updated": 1771876084817,
+      "created": 1772487021683,
+      "updated": 1772487021683,
       "translations": {
         "en": {
           "title": "Электроника"
@@ -431,8 +431,8 @@
       "id": "2",
       "title": "Одежда",
       "categoryId": null,
-      "created": 1771876084817,
-      "updated": 1771876084817,
+      "created": 1772487021683,
+      "updated": 1772487021683,
       "translations": {
         "en": {
           "title": "Одежда"
@@ -443,11 +443,35 @@
       "id": "3",
       "title": "Обувь",
       "categoryId": null,
-      "created": 1771876084817,
-      "updated": 1771876084817,
+      "created": 1772487021683,
+      "updated": 1772487021683,
       "translations": {
         "en": {
           "title": "Обувь"
+        }
+      }
+    },
+    {
+      "id": "4",
+      "title": "Комплектующие для ПК",
+      "categoryId": null,
+      "created": 1772487021683,
+      "updated": 1772487021683,
+      "translations": {
+        "en": {
+          "title": "Комплектующие для ПК"
+        }
+      }
+    },
+    {
+      "id": "5",
+      "title": "Товары для дома",
+      "categoryId": null,
+      "created": 1772487021683,
+      "updated": 1772487021683,
+      "translations": {
+        "en": {
+          "title": "Товары для дома"
         }
       }
     }
@@ -470,8 +494,8 @@
           "value": "#0000ff"
         }
       ],
-      "created": 1771876084821,
-      "updated": 1771876084821,
+      "created": 1772487021687,
+      "updated": 1772487021687,
       "translations": {
         "en": {
           "title": "Color"
@@ -495,8 +519,8 @@
           "value": "L"
         }
       ],
-      "created": 1771876084821,
-      "updated": 1771876084821,
+      "created": 1772487021687,
+      "updated": 1772487021687,
       "translations": {
         "en": {
           "title": "Size"

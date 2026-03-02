@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block title %}История заказов{% endblock %}
+{% block meta_tags %}
+  <meta name="description" content="Интернет-магазин" />
+  <meta name="keywords" content="Интернет-магазин, товары, акции" />
+  <meta name="author" content="Название компании" />
+{% endblock %}
 
 {% block content %}
 
@@ -7,7 +13,7 @@
 <section class="u-clearfix u-image u-valign-middle-md u-section-1" id="sec-6a4e" data-image-width="1920" data-image-height="1003">
 <div class="u-clearfix u-sheet u-sheet-1">
     <div class="order-history">
-            <h2 style="text-align: center; color: white;">Статус заказа</h2>
+            <h2 style="text-align: center; color: white;">История заказов</h2>
             {% if orders %}
                 <ul style="text-align: center; color: white;">
                     {% for order in orders %}
