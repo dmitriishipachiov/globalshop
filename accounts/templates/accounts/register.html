@@ -14,21 +14,43 @@
     <h2 class="u-align-center u-block-header u-h-spacing-0 u-text u-text-body-alt-color">Регистрация</h2>
     <form action="{% url 'accounts:register' %}" method="POST">
       {% csrf_token %}
+
+      <!-- Display form errors if any -->
+      {% if form.errors %}
+        <div class="alert alert-danger">
+          {% for field, errors in form.errors.items %}
+            {% for error in errors %}
+              <p>{{ error }}</p>
+            {% endfor %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <!-- Display non-field errors -->
+      {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+          {% for error in form.non_field_errors %}
+            <p>{{ error }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+
       <div class="form-group">
-        <label for="reg-phone">Номер телефона</label>
-        <input type="text" id="reg-phone" name="phone_number" placeholder="+7 (___) ___-__-__" required />
+        <label for="id_phone_number">Номер телефона</label>
+        {{ form.phone_number }}
+        <small class="form-text text-muted">Формат: +79991234567 или 89991234567</small>
       </div>
       <div class="form-group">
-        <label for="first_name">Ваше имя</label>
-        <input type="first_name" placeholder="Как Вас зовут" id="first_name" name="first_name" />
+        <label for="id_first_name">Ваше имя</label>
+        {{ form.first_name }}
       </div>
       <div class="form-group">
-        <label for="password1" class="u-form-control-hidden u-label">Пароль</label>
-        <input type="password" placeholder="Придумайте пароль" id="password1" name="password1" />
+        <label for="id_password1">Пароль</label>
+        {{ form.password1 }}
       </div>
       <div class="form-group">
-        <label for="password2" class="u-form-control-hidden u-label">Подтверждение пароля</label>
-        <input type="password" placeholder="Повторите ваш пароль" id="password2" name="password2" />
+        <label for="id_password2">Подтверждение пароля</label>
+        {{ form.password2 }}
       </div>
       <button type="submit" class="btn">Зарегистрироваться</button>
     </form>

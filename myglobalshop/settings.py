@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'orders.apps.OrdersConfig',
     'about.apps.AboutConfig',
     'legal.apps.LegalConfig',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [

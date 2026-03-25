@@ -1,8 +1,13 @@
 from django import forms
-from phonenumber_field.formfields import PhoneNumberField
+from django.core.validators import RegexValidator
 from orders.models import Order
 
 class OrderForm(forms.ModelForm):
+    phone_validator = RegexValidator(
+        regex=r'^\+?1?\d{9,15}$',
+        message="Введите корректный номер телефона (например, +79123456789 или 89123456789)"
+    )
+
     first_name = forms.CharField(label="Имя", widget=forms.TextInput(attrs={
         'class': 'form-control',
         'placeholder': 'Введите имя',
@@ -20,10 +25,14 @@ class OrderForm(forms.ModelForm):
         'placeholder': 'Введите email'
     }))
 
-    phone = PhoneNumberField(label="Телефон", widget=forms.TextInput(attrs={
-        'class': 'form-control',
-        'placeholder': 'Введите номер телефона'
-    }))
+    phone = forms.CharField(
+        label="Телефон",
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Введите номер телефона (например, +79123456789)'
+        }),
+        validators=[phone_validator]
+    )
 
     password = forms.CharField(
         label='Пароль',
@@ -32,7 +41,7 @@ class OrderForm(forms.ModelForm):
             'placeholder': 'Введите пароль',
             'maxlength': 128
         }),
-        required=False  # Пароль не обязателен для уже существующих пользователей
+        required=False
     )
 
     password2 = forms.CharField(
@@ -42,7 +51,7 @@ class OrderForm(forms.ModelForm):
             'placeholder': 'Повторите ваш пароль',
             'maxlength': 128
         }),
-        required=False  # Подтверждение пароля не обязательно для уже существующих пользователей
+        required=False
     )
 
     def clean(self):
@@ -97,6 +106,15 @@ class OrderForm(forms.ModelForm):
         ('card', 'Картой онлайн')
     ], widget=forms.RadioSelect(attrs={'class': 'form-check-input'}))
 
+    agree_to_terms = forms.BooleanField(
+        required=True,
+        label="Я принимаю пользовательское соглашение",
+        error_messages={'required': 'Вы должны принять пользовательское соглашение.'}
+    )
+
     class Meta:
         model = Order
-        fields = ['first_name', 'last_name', 'email', 'phone', 'city', 'street', 'house', 'building', 'apartment', 'postal_code', 'payment_method']
+        fields = [
+            'first_name', 'last_name', 'email', 'phone', 'city', 'street',
+            'house', 'building', 'apartment', 'postal_code', 'payment_method', 'agree_to_terms'
+        ]

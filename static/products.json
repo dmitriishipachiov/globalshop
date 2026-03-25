@@ -29,8 +29,8 @@
           "url": "/media/shop_images/aiphon1.jpeg"
         }
       ],
-      "created": 1773405753869,
-      "updated": 1773405753869,
+      "created": 1774461431528,
+      "updated": 1774461431528,
       "isDefault": true,
       "translations": {
         "ru": {
@@ -70,8 +70,8 @@
           "url": "/media/shop_images/spark52.jpeg"
         }
       ],
-      "created": 1773405753869,
-      "updated": 1773405753869,
+      "created": 1774461431528,
+      "updated": 1774461431528,
       "isDefault": true,
       "translations": {
         "ru": {
@@ -114,8 +114,8 @@
           "url": "/media/shop_images/xiomi60.jpeg"
         }
       ],
-      "created": 1773405753869,
-      "updated": 1773405753869,
+      "created": 1774461431528,
+      "updated": 1774461431528,
       "isDefault": true,
       "translations": {
         "ru": {
@@ -155,8 +155,8 @@
           "url": "/media/shop_images/xiomi60_uvbpKR8.jpeg"
         }
       ],
-      "created": 1773405753870,
-      "updated": 1773405753870,
+      "created": 1774461431529,
+      "updated": 1774461431529,
       "isDefault": true,
       "translations": {
         "ru": {
@@ -175,7 +175,7 @@
       "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
       "price": "3140.00",
       "oldPrice": "3140.00",
-      "quantity": 20,
+      "quantity": 19,
       "currency": "USD",
       "sku": "",
       "outOfStock": false,
@@ -196,8 +196,8 @@
           "url": "/media/shop_images/vetrovka94.webp"
         }
       ],
-      "created": 1773405753870,
-      "updated": 1773405753870,
+      "created": 1774461431529,
+      "updated": 1774461431529,
       "isDefault": true,
       "translations": {
         "ru": {
@@ -216,7 +216,7 @@
       "fullDescription": "Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
       "price": "950.00",
       "oldPrice": "950.00",
-      "quantity": 8,
+      "quantity": 7,
       "currency": "USD",
       "sku": "",
       "outOfStock": false,
@@ -237,8 +237,8 @@
           "url": "/media/shop_images/dozhdevik1.jpeg"
         }
       ],
-      "created": 1773405753870,
-      "updated": 1773405753870,
+      "created": 1774461431529,
+      "updated": 1774461431529,
       "isDefault": true,
       "translations": {
         "ru": {
@@ -278,8 +278,8 @@
           "url": "/media/shop_images/djinsy56.jpeg"
         }
       ],
-      "created": 1773405753871,
-      "updated": 1773405753871,
+      "created": 1774461431530,
+      "updated": 1774461431530,
       "isDefault": true,
       "translations": {
         "ru": {
@@ -319,8 +319,8 @@
           "url": "/media/shop_images/sapogi.jpeg"
         }
       ],
-      "created": 1773405753871,
-      "updated": 1773405753871,
+      "created": 1774461431530,
+      "updated": 1774461431530,
       "isDefault": true,
       "translations": {
         "ru": {
@@ -360,8 +360,8 @@
           "url": "/media/shop_images/newbalance1.jpeg"
         }
       ],
-      "created": 1773405753871,
-      "updated": 1773405753871,
+      "created": 1774461431530,
+      "updated": 1774461431530,
       "isDefault": true,
       "translations": {
         "ru": {
@@ -401,8 +401,8 @@
           "url": "/media/shop_images/botinkimuz.jpeg"
         }
       ],
-      "created": 1773405753871,
-      "updated": 1773405753871,
+      "created": 1774461431530,
+      "updated": 1774461431530,
       "isDefault": true,
       "translations": {
         "ru": {
@@ -419,8 +419,8 @@
       "id": "1",
       "title": "Электроника",
       "categoryId": null,
-      "created": 1773405753867,
-      "updated": 1773405753867,
+      "created": 1774461431526,
+      "updated": 1774461431526,
       "translations": {
         "en": {
           "title": "Электроника"
@@ -431,8 +431,8 @@
       "id": "2",
       "title": "Одежда",
       "categoryId": null,
-      "created": 1773405753867,
-      "updated": 1773405753867,
+      "created": 1774461431526,
+      "updated": 1774461431526,
       "translations": {
         "en": {
           "title": "Одежда"
@@ -443,8 +443,8 @@
       "id": "3",
       "title": "Обувь",
       "categoryId": null,
-      "created": 1773405753867,
-      "updated": 1773405753867,
+      "created": 1774461431526,
+      "updated": 1774461431526,
       "translations": {
         "en": {
           "title": "Обувь"
@@ -455,8 +455,8 @@
       "id": "4",
       "title": "Комплектующие для ПК",
       "categoryId": null,
-      "created": 1773405753867,
-      "updated": 1773405753867,
+      "created": 1774461431526,
+      "updated": 1774461431526,
       "translations": {
         "en": {
           "title": "Комплектующие для ПК"
@@ -467,8 +467,8 @@
       "id": "5",
       "title": "Товары для дома",
       "categoryId": null,
-      "created": 1773405753867,
-      "updated": 1773405753867,
+      "created": 1774461431526,
+      "updated": 1774461431526,
       "translations": {
         "en": {
           "title": "Товары для дома"
@@ -494,8 +494,8 @@
           "value": "#0000ff"
         }
       ],
-      "created": 1773405753871,
-      "updated": 1773405753871,
+      "created": 1774461431530,
+      "updated": 1774461431530,
       "translations": {
         "en": {
           "title": "Color"
@@ -519,8 +519,8 @@
           "value": "L"
         }
       ],
-      "created": 1773405753871,
-      "updated": 1773405753871,
+      "created": 1774461431530,
+      "updated": 1774461431530,
       "translations": {
         "en": {
           "title": "Size"

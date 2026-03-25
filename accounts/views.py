@@ -30,16 +30,8 @@ class RegisterView(BaseAuthView):
         """POST-запрос обрабатывает отправленную форму регистрации"""
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            # Извлекаем очищенные данные из формы
-            cleaned_data = form.cleaned_data
-            
-            # Создаем нового пользователя
-            user = User.objects.create_user(
-                phone_number=cleaned_data['phone_number'],
-                first_name=cleaned_data['first_name'],
-            )
-            user.set_password(cleaned_data['password1'])  # Безопасная установка пароля
-            user.save()
+            # Сохраняем пользователя через форму
+            user = form.save()
             login(request, user)
             if form.cleaned_data.get('is_checkout_registration'):
                 return redirect('accounts:profile')
