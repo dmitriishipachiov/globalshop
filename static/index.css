@@ -2,6 +2,29 @@
   min-height: 1288px;
 }
 
+.categories-list {
+    white-space: normal; /* Позволяет переносить текст */
+    word-wrap: break-word; /* Переносит длинные слова */
+    overflow-wrap: break-word; /*Альтернативное свойство для переноса слов*/
+    max-width: 100%; /*Ограничивает ширину контейнера*/
+}
+
+.category-item a {
+    white-space: normal; /* Позволяет переносить текст внутри ссылок */
+}
+
+.subcategories-list {
+    white-space: normal; /* Позволяет переносить текст */
+    word-wrap: break-word; /* Переносит длинные слова */
+    overflow-wrap: break-word; /* Альтернативное свойство для переноса слов */
+}
+
+.subcategory-item a {
+    white-space: normal; /* Позволяет переносить текст внутри ссылок */
+    word-break: break-word; /* Переносит слова по необходимости */
+    max-width: 100%; /* Ограничивает ширину ссылки */
+}
+
 .u-section-1 .u-group-1 {
   width: 274px;
   min-height: 1242px;
