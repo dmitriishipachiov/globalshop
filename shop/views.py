@@ -1,141 +1,106 @@
 from django.utils.http import urlencode
 from django.shortcuts import get_object_or_404
-from django.views.generic import ListView, DetailView, TemplateView
-from django.views import View
+from django.views.generic import ListView, DetailView, TemplateView, View
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from shop.mixins import SearchMixin
 from shop.models import CategoryShop, ProductShop, SubcategoryShop
 import json
 import os
 from django.conf import settings
 
 
-class ShopListView(ListView):
+class ShopListView(SearchMixin, ListView):
     """
-    Класс-представление для отображения списка товаров.
-
-    Attributes:
-        model (ProductShop): Модель данных для товаров.
-        template_name (str): Имя шаблона для отображения списка товаров.
-        paginate_by (int): Количество товаров на странице.
-        context_object_name (str): Имя переменной контекста для списка товаров.
-
-    Methods:
-        get_queryset(): Возвращает queryset товаров в зависимости от выбранной категории или подкатегории.
-        get_context_data(**kwargs): Добавляет дополнительные данные в контекст шаблона.
+    Отображает список товаров с фильтрацией, поиском и сортировкой.
+    Логика разделена: сначала фильтрация, затем поиск, затем сортировка.
     """
     model = ProductShop
     template_name = 'shop/products.html'
     paginate_by = 6
     context_object_name = 'products'
+    default_ordering = '-pk'  # Дефолтная сортировка по ID (новые товары)
 
     def get_queryset(self):
         """
-        Фильтрует товары по выбранной категории, подкатегории или поисковому запросу.
-
-        Returns:
-            QuerySet: Отфильтрованный queryset товаров.
+        1. Получает базовый список товаров.
+        2. Применяет фильтрацию по категории/подкатегории.
+        3. Применяет поиск (если есть запрос).
+        4. Применяет сортировку.
         """
-        category_slug = self.request.GET.get('category', None)
-        subcategory_slug = self.request.GET.get('subcategory', None)
-        search_query = self.request.GET.get('search', None)
-
-        queryset = super().get_queryset()
-
-        # Apply search filter if search query is provided
-        if search_query:
-            # First, try to find exact category or subcategory matches
-            category_matches = CategoryShop.objects.filter(title__icontains=search_query)
-            subcategory_matches = SubcategoryShop.objects.filter(title__icontains=search_query)
-
-            # Build Q objects for category and subcategory filtering
-            category_q = Q()
-            for category in category_matches:
-                category_q |= Q(category=category)
-
-            subcategory_q = Q()
-            for subcategory in subcategory_matches:
-                subcategory_q |= Q(subcategory=subcategory)
-
-            # Combine all search conditions
-            queryset = queryset.filter(
-                Q(title__icontains=search_query) |
-                Q(description__icontains=search_query) |
-                category_q |
-                subcategory_q
-            )
-
-        # Apply category/subcategory filters
+        # 1. Базовый QuerySet с дефолтной сортировкой для пагинации
+        queryset = super().get_queryset().order_by(self.default_ordering)
+        
+        # 2. Фильтрация по категориям (НЕ перезаписываем queryset, а фильтруем!)
+        category_slug = self.request.GET.get('category')
+        subcategory_slug = self.request.GET.get('subcategory')
+        
         if subcategory_slug:
-            subcategory = get_object_or_404(SubcategoryShop, slug=subcategory_slug)
-            queryset = queryset.filter(subcategory=subcategory)
+            queryset = queryset.filter(subcategory__slug=subcategory_slug)
         elif category_slug:
-            category = get_object_or_404(CategoryShop, slug=category_slug)
-            queryset = queryset.filter(category=category)
+            queryset = queryset.filter(category__slug=category_slug)
 
-        return queryset.order_by('pk')
+        # 3. Поиск (вызываем метод из миксина)
+        search_query = self.request.GET.get('search', '').strip()
+        if search_query:
+            # Если есть поиск, заменяем queryset на результаты поиска
+            queryset = self.get_search_results()
+            # Важно: после поиска нужно применить фильтрацию категорий заново,
+            # так как поиск возвращает все товары, а нам нужны только из выбранной категории.
+            if category_slug:
+                queryset = queryset.filter(category__slug=category_slug)
+            elif subcategory_slug:
+                queryset = queryset.filter(subcategory__slug=subcategory_slug)
+
+        # 4. Сортировка (применяем в самом конце)
+        sort_by = self.request.GET.get('sorting', 'created-desc')
+        
+        # Исправляем ошибку FieldError: используем 'pk' вместо 'created'
+        sort_map = {
+            'title-asc': 'title',
+            'title-desc': '-title',
+            'price-asc': 'price',
+            'price-desc': '-price',
+            'created-asc': 'pk',      # Сортировка по ID (старые -> новые)
+            'created-desc': '-pk',    # Сортировка по ID (новые -> старые)
+        }
+        
+        order_field = sort_map.get(sort_by, '-pk')
+        
+        return queryset.order_by(order_field)
 
     def get_context_data(self, **kwargs):
         """
-        Добавляет дополнительные данные в контекст шаблона.
-
-        Returns:
-            dict: Словарь с данными для передачи в шаблон.
+        Добавляет данные для шаблона: фильтры, пагинацию, состояние поиска.
         """
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Магазин'
-        context['categories'] = CategoryShop.objects.all()
-        context['subcategories'] = SubcategoryShop.objects.all()
-
-        # Safely get selected category without raising 404
-        category_slug = self.request.GET.get('category')
-        if category_slug:
-            try:
-                context['selected_category'] = CategoryShop.objects.get(slug=category_slug)
-            except CategoryShop.DoesNotExist:
-                context['selected_category'] = None
-        else:
-            context['selected_category'] = None
-
-        # Safely get selected subcategory without raising 404
-        subcategory_slug = self.request.GET.get('subcategory')
-        if subcategory_slug:
-            try:
-                context['selected_subcategory'] = SubcategoryShop.objects.get(slug=subcategory_slug)
-            except SubcategoryShop.DoesNotExist:
-                context['selected_subcategory'] = None
-        else:
-            context['selected_subcategory'] = None
-
-        # Add search query to context
-        search_query = self.request.GET.get('search', '')
-        context['search_query'] = search_query
-
-        # Передаем текущие параметры запроса для пагинации
+        
+        # Сохраняем параметры для пагинации (кроме page)
         query_params = self.request.GET.copy()
-        if 'page' in query_params:
-            del query_params['page']
-        context['query_params'] = urlencode(query_params)
-
+        query_params.pop('page', None)
+        
+        context.update({
+            'title': 'Магазин',
+            'categories': CategoryShop.objects.all(),
+            'subcategories': SubcategoryShop.objects.all(),
+            'query_params': urlencode(query_params),
+            
+            # Текущая сортировка для отображения в <select>
+            'sorting': self.request.GET.get('sorting', 'created-desc'),
+            
+            # Поисковый запрос для поля input
+            'search_query': self.request.GET.get('search', ''),
+            
+            # Безопасное получение фильтров для подсветки в меню (без 404)
+            'selected_category': CategoryShop.objects.filter(slug=self.request.GET.get('category')).first(),
+            'selected_subcategory': SubcategoryShop.objects.filter(slug=self.request.GET.get('subcategory')).first(),
+        })
+        
         return context
 
 
 class ProductDetailView(DetailView):
-    """
-    Класс-представление для отображения детальной информации о товаре.
-
-    Attributes:
-        model (ProductShop): Модель данных для товаров.
-        template_name (str): Имя шаблона для отображения детальной информации о товаре.
-        context_object_name (str): Имя переменной контекста для товара.
-        slug_url_kwarg (str): Имя параметра URL для slug товара.
-        slug_field (str): Имя поля модели для фильтрации по slug.
-
-    Methods:
-        get_object(): Возвращает объект товара по slug.
-        get_context_data(**kwargs): Добавляет дополнительные данные в контекст шаблона.
-    """
     model = ProductShop
     template_name = 'shop/details.html'
     context_object_name = 'product'
@@ -143,31 +108,27 @@ class ProductDetailView(DetailView):
     slug_field = 'slug'
 
     def get_object(self, queryset=None):
-        """
-        Возвращает объект товара по slug.
-
-        Returns:
-            ProductShop: Объект товара.
-        """
         return get_object_or_404(ProductShop, slug=self.kwargs.get('product_slug'))
 
     def get_context_data(self, **kwargs):
-        """
-        Добавляет дополнительные данные в контекст шаблона.
-
-        Returns:
-            dict: Словарь с данными для передачи в шаблон.
-        """
         context = super().get_context_data(**kwargs)
-        context['title'] = f'Товар: {self.object.title}'
-        context['images'] = self.object.images.all()
-        context['categories'] = CategoryShop.objects.all()
-        context['subcategories'] = SubcategoryShop.objects.all()
-
-        # Add selected category and subcategory to context
-        context['selected_category'] = self.object.category
-        context['selected_subcategory'] = self.object.subcategory
-
+        
+        context.update({
+            'title': f'Товар: {self.object.title}',
+            'images': self.object.images.all(),
+            
+            # Для хлебных крошек / навигации
+            'selected_category': self.object.category,
+            'selected_subcategory': self.object.subcategory,
+            
+            # Рекомендуемые товары из той же категории (кроме текущего)
+            'related_products': ProductShop.objects.filter(
+                category=self.object.category
+            ).exclude(id=self.object.id)[:4],
+            
+            'categories': CategoryShop.objects.all(),
+        })
+        
         return context
 
 
@@ -221,35 +182,20 @@ class CategoryListView(ListView):
 
 
 class FavoriteToggleView(LoginRequiredMixin, View):
-    """
-    Класс-представление для добавления/удаления товаров из избранного.
-
-    Methods:
-        post(self, request, product_slug): Обрабатывает POST-запрос для добавления/удаления товара из избранного.
-    """
-
     def post(self, request, product_slug):
-        """
-        Обрабатывает POST-запрос для добавления или удаления товара из избранного.
-
-        Args:
-            request (HttpRequest): Запрос пользователя.
-            product_slug (str): Slug товара.
-
-        Returns:
-            JsonResponse: JSON-ответ с информацией о статусе избранного товара.
-        """
         product = get_object_or_404(ProductShop, slug=product_slug)
-        user = request.user
-
-        if product in user.favorite_products.all():
-            user.favorite_products.remove(product)
-            is_favorited = False
+        
+        is_favorited = product in request.user.favorite_products.all()
+        
+        if is_favorited:
+            request.user.favorite_products.remove(product)
         else:
-            user.favorite_products.add(product)
-            is_favorited = True
-
-        return JsonResponse({'is_favorited': is_favorited})
+            request.user.favorite_products.add(product)
+        
+        return JsonResponse({
+            'is_favorited': not is_favorited,
+            'count': request.user.favorite_products.count()
+        })
 
 
 class FavoriteListView(LoginRequiredMixin, TemplateView):
@@ -299,39 +245,21 @@ class FavoriteCountView(LoginRequiredMixin, View):
         return JsonResponse({'favorites_count': favorites_count})
 
 class ProductsJsonView(View):
-    """
-    Класс-представление для отдачи статического файла products.json.
-
-    Methods:
-        get(self, request): Возвращает содержимое файла products.json.
-    """
-
     def get(self, request):
-        """
-        Обрабатывает GET-запрос для возврата содержимого файла products.json.
-
-        Args:
-            request (HttpRequest): Запрос пользователя.
-
-        Returns:
-            HttpResponse: JSON-ответ с содержимым файла products.json.
-        """
-        # Try to find the file in products directory first
-        json_file_path = os.path.join(settings.BASE_DIR, 'products', 'products.json')
-
-        # If not found, try static directory as fallback
-        if not os.path.exists(json_file_path):
-            json_file_path = os.path.join(settings.BASE_DIR, 'static', 'products.json')
-
-        # If STATIC_ROOT is set, also try there
-        if hasattr(settings, 'STATIC_ROOT') and settings.STATIC_ROOT:
-            alternative_path = os.path.join(settings.STATIC_ROOT, 'products.json')
-            if os.path.exists(alternative_path):
-                json_file_path = alternative_path
-
+        json_file_path = os.path.join(settings.BASE_DIR, 'static', 'products.json')
+        
         try:
             with open(json_file_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-            return HttpResponse(json.dumps(data), content_type='application/json')
-        except (FileNotFoundError, json.JSONDecodeError) as e:
-            return HttpResponse(json.dumps({'error': 'File not found or invalid JSON'}), content_type='application/json', status=404)
+            
+            return HttpResponse(
+                json.dumps(data),
+                content_type='application/json; charset=utf-8'
+            )
+            
+        except FileNotFoundError:
+            return JsonResponse(
+                {'error': 'Файл products.json не найден.'},
+                status=404,
+                json_dumps_params={'ensure_ascii': False}
+            )

@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class CategoryShop(models.Model):
@@ -95,6 +96,12 @@ class ProductShop(models.Model):
     category = models.ForeignKey(to=CategoryShop, on_delete=models.PROTECT, verbose_name='Категория товара')
     subcategory = models.ForeignKey(
         to=SubcategoryShop, on_delete=models.PROTECT, verbose_name='Подкатегория товара', null=True, blank=True
+    )
+    created = models.DateTimeField(
+        verbose_name='Дата создания',
+        default=timezone.now, # Устанавливает текущую дату по умолчанию
+        editable=False, # Скрывает поле из админки для редактирования
+        db_index=True # (Опционально, но полезно) Создает индекс в БД для ускорения сортировки
     )
     is_bestseller = models.BooleanField(default=False, verbose_name='Хит продаж')
     is_promo = models.BooleanField(default=False, verbose_name='Акция')

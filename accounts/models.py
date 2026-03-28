@@ -4,7 +4,7 @@ from django.db import models
 from django.contrib.auth.models import BaseUserManager
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from phonenumber_field.modelfields import PhoneNumberField
+from accounts.validators import validate_phone_number
 
 
 class Address(models.Model):
@@ -131,7 +131,7 @@ class User(AbstractUser):
     Methods:
         __str__: Возвращает строковое представление пользователя.
     """
-    phone_number = PhoneNumberField(unique=True)
+    phone_number = models.CharField(max_length=15, unique=True, validators=[validate_phone_number])
     first_name = models.CharField(max_length=150, blank=True, verbose_name="Имя")
     username = None
 

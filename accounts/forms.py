@@ -3,11 +3,8 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth import authenticate
 from .models import User
+from accounts.validators import validate_phone_number
 
-def validate_phone_number(value):
-    pattern = r'^(\+7|8)\d{10}$'
-    if not re.match(pattern, value):
-        raise ValidationError("Некорректный формат номера телефона. Пример: +79991234567 или 89991234567.")
 
 class RegistrationForm(forms.Form):
     phone_number = forms.CharField(
