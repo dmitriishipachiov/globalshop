@@ -152,15 +152,31 @@ class CategoryListView(ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
-        """
-        Возвращает queryset товаров, принадлежащих к выбранной категории.
+        queryset = super().get_queryset()
 
-        Returns:
-            QuerySet: Отфильтрованный queryset товаров.
-        """
+        # Фильтрация
         category_slug = self.kwargs['category_slug']
-        category = get_object_or_404(CategoryShop, slug=category_slug)
-        return ProductShop.objects.filter(category=category).order_by('pk')
+        subcategory_slug = self.request.GET.get('subcategory')
+        if subcategory_slug:
+            queryset = queryset.filter(subcategory__slug=subcategory_slug)
+        elif category_slug:
+            queryset = queryset.filter(category__slug=category_slug)
+            category = get_object_or_404(CategoryShop, slug=category_slug)
+            return ProductShop.objects.filter(category=category).order_by('pk')
+        
+
+        # Сортировка
+        sort_by = self.request.GET.get('sorting', '-pk')
+        sort_map = {
+            'title-asc': 'title',
+            'title-desc': '-title',
+            'price-asc': 'price',
+            'price-desc': '-price',
+            'created-asc': 'pk',
+            'created-desc': '-pk',
+        }
+        order_field = sort_map.get(sort_by, '-pk')
+        return queryset.order_by(order_field)
 
     def get_context_data(self, **kwargs):
         """
@@ -178,6 +194,7 @@ class CategoryListView(ListView):
         context['subcategories'] = SubcategoryShop.objects.all()
         context['selected_category'] = category
         context['selected_subcategory'] = None
+        context['sorting'] = self.request.GET.get('sorting', 'created-desc')
         return context
 
 
