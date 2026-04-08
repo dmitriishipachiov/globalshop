@@ -59,12 +59,12 @@
               <div class="has-categories-listbox has-sorting u-list-control"><!--products_sorting-->
                 <div class="u-sorting">
                   <select name="sorting" class="u-custom-color-1 u-input u-select-sorting u-input-1" aria-label="Sort items by">
-                    <option value="title-asc" {% if sorting == "title-asc" %}selected{% endif %}>Название А до Я</option>
-                    <option value="title-desc" {% if sorting == "title-desc" %}selected{% endif %}>Название Я до А</option>
-                    <option value="price-asc" {% if sorting == "price-asc" %}selected{% endif %}>Цена по возрастанию</option>
-                    <option value="price-desc" {% if sorting == "price-desc" %}selected{% endif %}>Цена по убыванию</option>
-                    <option value="created-asc" {% if sorting == "created-asc" %}selected{% endif %}>Дата, от ранних к новым</option>
-                    <option value="created-desc" {% if sorting == "created-desc" %}selected{% endif %}>Дата, от новых к ранним</option>
+                      <option value="title-asc" {% if sorting == "title-asc" %}selected{% endif %}>Название А до Я</option>
+                      <option value="title-desc" {% if sorting == "title-desc" %}selected{% endif %}>Название Я до А</option>
+                      <option value="price-asc" {% if sorting == "price-asc" %}selected{% endif %}>Цена по возрастанию</option>
+                      <option value="price-desc" {% if sorting == "price-desc" %}selected{% endif %}>Цена по убыванию</option>
+                      <option value="created-asc" {% if sorting == "created-asc" %}selected{% endif %}>Дата, от ранних к новым</option>
+                      <option value="created-desc" {% if sorting == "created-desc" %}selected{% endif %}>Дата, от новых к ранним</option>
                   </select>
                   <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
                 </div><!--/products_sorting-->
@@ -179,10 +179,27 @@
 document.addEventListener('DOMContentLoaded', function () {
     const selectElement = document.querySelector('.u-select-sorting');
     if (selectElement) {
+        const currentSorting = new URLSearchParams(window.location.search).get('sorting') || 'created-desc';
+        
+        // Находим нужную опцию
+        const targetOption = selectElement.querySelector(`option[value="${currentSorting}"]`);
+        
+        if (targetOption) {
+            // Устанавливаем атрибут selected (это меняет визуальное отображение)
+            targetOption.selected = true;
+            
+            // Создаем и dispatch событие 'change', чтобы все обработчики сработали
+            // Это важно для кастомных стилизованных селектов
+            selectElement.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+
+        // Обработчик изменения (оставляем без изменений)
         selectElement.addEventListener('change', function () {
             const sortingValue = this.value;
             const currentParams = new URLSearchParams(window.location.search);
             currentParams.set('sorting', sortingValue);
+            currentParams.delete('page'); // Сброс страницы при смене сортировки
+
             window.location.search = currentParams.toString();
         });
     }

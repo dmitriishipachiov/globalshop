@@ -27,12 +27,12 @@ class ShopListView(SearchMixin, ListView):
         1. Получает базовый список товаров.
         2. Применяет фильтрацию по категории/подкатегории.
         3. Применяет поиск (если есть запрос).
-        4. Применяет сортировку.
+        4. Применяет сортировку (в самом конце, к финальному queryset).
         """
-        # 1. Базовый QuerySet с дефолтной сортировкой для пагинации
-        queryset = super().get_queryset().order_by(self.default_ordering)
+        # 1. Базовый QuerySet БЕЗ сортировки, чтобы не было конфликтов
+        queryset = super().get_queryset()
         
-        # 2. Фильтрация по категориям (НЕ перезаписываем queryset, а фильтруем!)
+        # 2. Фильтрация по категориям
         category_slug = self.request.GET.get('category')
         subcategory_slug = self.request.GET.get('subcategory')
         
@@ -46,24 +46,22 @@ class ShopListView(SearchMixin, ListView):
         if search_query:
             # Если есть поиск, заменяем queryset на результаты поиска
             queryset = self.get_search_results()
-            # Важно: после поиска нужно применить фильтрацию категорий заново,
-            # так как поиск возвращает все товары, а нам нужны только из выбранной категории.
+            # Важно: после поиска нужно применить фильтрацию категорий заново
             if category_slug:
                 queryset = queryset.filter(category__slug=category_slug)
             elif subcategory_slug:
                 queryset = queryset.filter(subcategory__slug=subcategory_slug)
 
-        # 4. Сортировка (применяем в самом конце)
+        # 4. Сортировка (применяем в самом конце к финальному queryset)
         sort_by = self.request.GET.get('sorting', 'created-desc')
         
-        # Исправляем ошибку FieldError: используем 'pk' вместо 'created'
         sort_map = {
             'title-asc': 'title',
             'title-desc': '-title',
             'price-asc': 'price',
             'price-desc': '-price',
-            'created-asc': 'pk',      # Сортировка по ID (старые -> новые)
-            'created-desc': '-pk',    # Сортировка по ID (новые -> старые)
+            'created-asc': 'pk',
+            'created-desc': '-pk',
         }
         
         order_field = sort_map.get(sort_by, '-pk')
@@ -80,6 +78,22 @@ class ShopListView(SearchMixin, ListView):
         query_params = self.request.GET.copy()
         query_params.pop('page', None)
         
+        # --- НАЧАЛО ИСПРАВЛЕНИЯ ---
+        # Проверяем, активен ли поиск
+        search_query = self.request.GET.get('search', '').strip()
+        is_search_active = bool(search_query)
+        
+        # Если поиск активен, мы не должны выделять категорию,
+        # так как поиск идёт по всему магазину, а не внутри категории.
+        selected_category = None
+        selected_subcategory = None
+        
+        if not is_search_active:
+            # Только если поиска нет, мы берём фильтры из URL
+            selected_category = CategoryShop.objects.filter(slug=self.request.GET.get('category')).first()
+            selected_subcategory = SubcategoryShop.objects.filter(slug=self.request.GET.get('subcategory')).first()
+        # --- КОНЕЦ ИСПРАВЛЕНИЯ ---
+
         context.update({
             'title': 'Магазин',
             'categories': CategoryShop.objects.all(),
@@ -90,11 +104,11 @@ class ShopListView(SearchMixin, ListView):
             'sorting': self.request.GET.get('sorting', 'created-desc'),
             
             # Поисковый запрос для поля input
-            'search_query': self.request.GET.get('search', ''),
+            'search_query': search_query,
             
             # Безопасное получение фильтров для подсветки в меню (без 404)
-            'selected_category': CategoryShop.objects.filter(slug=self.request.GET.get('category')).first(),
-            'selected_subcategory': SubcategoryShop.objects.filter(slug=self.request.GET.get('subcategory')).first(),
+            'selected_category': selected_category,
+            'selected_subcategory': selected_subcategory,
         })
         
         return context
@@ -154,19 +168,20 @@ class CategoryListView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
 
-        # Фильтрация
         category_slug = self.kwargs['category_slug']
+        
+        # Фильтрация по категории из URL
+        category = get_object_or_404(CategoryShop, slug=category_slug)
+        queryset = queryset.filter(category=category)
+
+        # Дополнительная фильтрация по подкатегории из GET-параметров
         subcategory_slug = self.request.GET.get('subcategory')
         if subcategory_slug:
             queryset = queryset.filter(subcategory__slug=subcategory_slug)
-        elif category_slug:
-            queryset = queryset.filter(category__slug=category_slug)
-            category = get_object_or_404(CategoryShop, slug=category_slug)
-            return ProductShop.objects.filter(category=category).order_by('pk')
-        
 
-        # Сортировка
+        # Сортировка (всегда в конце)
         sort_by = self.request.GET.get('sorting', '-pk')
+        
         sort_map = {
             'title-asc': 'title',
             'title-desc': '-title',
@@ -175,7 +190,9 @@ class CategoryListView(ListView):
             'created-asc': 'pk',
             'created-desc': '-pk',
         }
+        
         order_field = sort_map.get(sort_by, '-pk')
+        
         return queryset.order_by(order_field)
 
     def get_context_data(self, **kwargs):

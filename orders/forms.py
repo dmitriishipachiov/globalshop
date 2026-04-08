@@ -85,21 +85,20 @@ class OrderForm(forms.ModelForm):
     building = forms.CharField(label="Корпус", widget=forms.TextInput(attrs={
         'class': 'form-control',
         'placeholder': 'Корпус (если имеется)',
-        'style': 'color:#ccc;',
-        'required': False
-    }))
+        'style': 'color:#ccc;'
+    }), required=False)
 
     apartment = forms.CharField(label="Квартира", widget=forms.TextInput(attrs={
         'class': 'form-control',
         'placeholder': 'Введите квартиру',
         'maxlength': 10
-    }))
+    }), required=False)
 
     postal_code = forms.CharField(label="Почтовый индекс", widget=forms.TextInput(attrs={
         'class': 'form-control',
         'placeholder': 'Введите почтовый индекс',
         'maxlength': 10
-    }))
+    }), required=False)
 
     payment_method = forms.ChoiceField(label="Способ оплаты", choices=[
         ('cash', 'Наличными'),

@@ -61,6 +61,10 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.quantity} x {self.product.title} в Заказе #{self.order.id}"
+    
+    class Meta:
+        db_table = 'orderitem'
+        verbose_name = 'Заказ товаров'
 
     @property
     def subtotal(self):

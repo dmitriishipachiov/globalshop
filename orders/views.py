@@ -1,4 +1,4 @@
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseForbidden
@@ -51,15 +51,15 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
 
         return context
 
-class OrderCreateView(LoginRequiredMixin, CreateView):
-    model = Order
-    form_class = OrderForm
-    template_name = 'orders/order_form.html'
-    success_url = reverse_lazy('orders:order_list')
+# class OrderCreateView(LoginRequiredMixin, CreateView):
+#     model = Order
+#     form_class = OrderForm
+#     template_name = 'orders/order_form.html'
+#     success_url = reverse_lazy('orders:order_list')
 
-    def form_valid(self, form):
-        # Сохраняем пользователя в заказ
-        form.instance.user = self.request.user
+#     def form_valid(self, form):
+#         # Сохраняем пользователя в заказ
+#         form.instance.user = self.request.user
 
-        return super().form_valid(form)
+#         return super().form_valid(form)
     
