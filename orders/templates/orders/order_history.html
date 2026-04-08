@@ -22,7 +22,7 @@
                             {% for item in order.items.all %}
                             <strong>Наименование:</strong> {{ item.product.title }}<br>
                             {% endfor %}
-                            <strong>Статус:</strong> {{ order.status }}<br>
+                            <strong>Статус:</strong> {{ order.get_status_display }}<br>
                             <strong>Общая стоимость:</strong> {{ order.total_cost }}<br>
                             <strong>Дата покупки:</strong> {{ order.created_at }}
                         </li>

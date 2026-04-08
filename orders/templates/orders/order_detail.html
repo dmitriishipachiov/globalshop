@@ -29,7 +29,7 @@
 <p style="text-align: center; color: white;">{{ address }}</p>
 {% endif %}
 
-<p style="text-align: center; color: white;">Статус: {{ order.status }}</p>
+<p style="text-align: center; color: white;">Статус: {{ order.get_status_display }}</p>
 <p style="text-align: center; color: white;">Дата создания: {{ order.created_at }}</p>
 <p style="text-align: center; color: white;">Общая стоимость: {{ order.total_cost }}</p>
 <p style="text-align: center; color: white;">Скидка: {{ order.discount }}</p>
