@@ -16,8 +16,8 @@ class Order(models.Model):
         ('paid', 'Оплачен'),
     ]
     PAYMENT_METHODS = [
-        ('cash', 'Наличные'),
-        ('credit_card', 'Кредитная карта'),
+        ('cash', 'Наличными'),
+        ('card', 'Картой онлайн'),
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders', verbose_name='Покупатель')

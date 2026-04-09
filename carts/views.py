@@ -1,6 +1,9 @@
 from typing import Any, Dict, Optional
+import uuid
 
 from django.views.generic import View, TemplateView
+from django.conf import settings
+from yookassa import Configuration, Payment
 from django.urls import reverse_lazy
 from django.http import JsonResponse, HttpRequest, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -174,6 +177,37 @@ class CheckoutView(SuccessMessageMixin, View):
                 if user:
                     # Если пользователь был создан, нужно его авторизовать
                     login(request, user)
+                
+                # Если выбрана оплата картой - перенаправляем на оплату
+                if form.cleaned_data['payment_method'] == 'card':
+                    try:
+                        # Конфигурируем ЮКасса
+                        Configuration.configure(settings.YOOKASSA_ACCOUNT_ID, settings.YOOKASSA_SECRET_KEY)
+                        
+                        # Создаем платеж
+                        payment = Payment.create({
+                            "amount": {
+                                "value": str(float(order.total_cost)),
+                                "currency": "RUB"
+                            },
+                            "confirmation": {
+                                "type": "redirect",
+                                "return_url": request.build_absolute_uri(reverse_lazy('orders:payment_success', args=[order.pk]))
+                            },
+                            "capture": True,
+                            "description": f"Оплата заказа #{order.id}",
+                            "metadata": {
+                                "order_id": str(order.id)
+                            }
+                        }, str(uuid.uuid4()))
+                        
+                        # Сохраняем id платежа в заказе (добавим поле в модель потом)
+                        return redirect(payment.confirmation.confirmation_url)
+                    except Exception as payment_error:
+                        messages.error(request, f'Ошибка создания платежа: {str(payment_error)}')
+                        return redirect('carts:checkout')
+                
+                # Иначе обычный переход на страницу заказа
                 return redirect('orders:order_detail', pk=order.pk)
         except Exception as e:
             messages.error(request, f'Ошибка оформления заказа: {str(e)}')
